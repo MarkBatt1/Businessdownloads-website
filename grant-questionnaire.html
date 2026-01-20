@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grant Application Questionnaire - BusinessDownloads.co.uk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            color: #1e3a8a;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .progress-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            color: #64748b;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .form-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #1e3a8a;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-description {
+            color: #64748b;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .hint {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: start;
+            cursor: pointer;
+        }
+
+        .checkbox-label input {
+            margin-right: 0.75rem;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-top: 0.1rem;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .radio-label:hover {
+            background: #f8fafc;
+        }
+
+        .radio-label input {
+            margin-right: 0.75rem;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            flex: 2;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+        }
+
+        .btn-primary:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            background: white;
+            color: #1e3a8a;
+            border: 2px solid #1e3a8a;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f9ff;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-message h2 {
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+
+        .success-message p {
+            color: #64748b;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            .form-card {
+                padding: 1.5rem;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Grant Application Questionnaire</h1>
+            <p>Help us understand your business so we can create winning grant applications</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 14%;"></div>
+            </div>
+            <p class="progress-text" id="progressText">Section 1 of 7 - Contact Information</p>
+        </div>
+
+        <form id="grantForm">
+            
+            <div class="form-card section" id="section1">
+                <h2 class="section-title">📋 Contact Information</h2>
+                <p class="section-description">Let's start with your basic contact details</p>
+
+                <div class="form-group">
+                    <label>Your Name <span class="required">*</span></label>
+                    <input type="text" name="contactName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address <span class="required">*</span></label>
+                    <input type="email" name="email" required>
+                    <p class="hint">We'll send your completed applications here</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number <span class="required">*</span></label>
+                    <input type="tel" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Business Name <span class="required">*</span></label>
+                    <input type="text" name="businessName" required>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary" onclick="nextSection(2)">Continue</button>
+                </div>
+            </div>
+
+            <div class="form-card section hidden" id="section2">
+                <h2 class="section-title">🏢 Business Details</h2>
+                <p class="section-description">Tell us about your business structure and operations</p>
+
+                <div class="form-group">
+                    <label>Business Address <span class="required">*</span></label>
+                    <input type="text" name="address1" placeholder="Street Address" required>
+                    <input type="text" name="address2" placeholder="Address Line 2" style="margin-top: 0.5rem;">
+                </div>
+
+                <div class="form-group">
+                    <label>City <span class="required">*</span></label>
+                    <input type="text" name="city" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Postcode <span class="required">*</span></label>
+                    <input type="text" name="postcode" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Business Structure <span class="required">*</span></label>
+                    <select name="businessStructure" required>
+                        <option value="">Select structure</option>
+                        <option value="Sole Trader">Sole Trader</option>
+                        <option value="Partnership">Partnership</option>
+                        <option value="Limited Company">Limited Company (Ltd)</option>
+                        <option value="LLP">Limited Liability Partnership (LLP)</option>
+                        <option value="CIC">Community Interest Company (CIC)</option>
+                        <option value="Charity">Charity</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Company Registration Number</label>
+                    <input type="text" name="companyNumber">
+                    <p class="hint">If applicable (Ltd companies only)</p>
+                </div>
+
+                <div class="form-group">
+                    <label>VAT Number</label>
+                    <input type="text" name="vatNumber">
+                    <p class="hint">If VAT registered</p>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevSection(1)">Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextSection(3)">Continue</button>
+                </div>
+            </div>
+
+            <div class="form-card section hidden" id="section3">
+                <h2 class="section-title">💼 Business Operations</h2>
+                <p class="section-description">Help us understand what your business does</p>
+
+                <div class="form-group">
+                    <label>Industry/Sector <span class="required">*</span></label>
+                    <select name="sector" required>
+                        <option value="">Select your sector</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Hospitality & Catering">Hospitality & Catering</option>
+                        <option value="Construction & Trades">Construction & Trades</option>
+                        <option value="Professional Services">Professional Services</option>
+                        <option value="Creative & Media">Creative & Media</option>
+                        <option value="Technology & IT">Technology & IT</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Healthcare & Social Care">Healthcare & Social Care</option>
+                        <option value="Education & Training">Education & Training</option>
+                        <option value="Agriculture & Farming">Agriculture & Farming</option>
+                        <option value="Transportation & Logistics">Transportation & Logistics</option>
+                        <option value="Beauty & Wellness">Beauty & Wellness</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>When did you start trading? <span class="required">*</span></label>
+                    <input type="month" name="tradingStartDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Number of Employees <span class="required">*</span></label>
+                    <select name="employeeCount" required>
+                        <option value="">Select range</option>
+                        <option value="0">Just me (sole trader)</option>
+                        <option value="1-5">1-5 employees</option>
+                        <option value="6-10">6-10 employees</option>
+                        <option value="11-20">11-20 employees</option>
+                        <option value="21-50">21-50 employees</option>
+                        <option value="50+">50+ employees</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Annual Turnover <span class="required">*</span></label>
+                    <select name="turnover" required>
+                        <option value="">Select range</option>
+                        <option value="Under £50,000">Under £50,000</option>
+                        <option value="£50,000 - £100,000">£50,000 - £100,000</option>
+                        <option value="£100,000 - £250,000">£100,000 - £250,000</option>
+                        <option value="£250,000 - £500,000">£250,000 - £500,000</option>
+                        <option value="£500,000 - £1,000,000">£500,000 - £1,000,000</option>
+                        <option value="Over £1,000,000">Over £1,000,000</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Describe what your business does <span class="required">*</span></label>
+                    <textarea name="businessDescription" required placeholder="Explain your products/services, target customers, and what makes your business unique"></textarea>
+                    <p class="hint">Be specific - this helps us match you with the right grants</p>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevSection(2)">Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextSection(4)">Continue</button>
+                </div>
+            </div>
+
+            <div class="form-card section hidden" id="section4">
+                <h2 class="section-title">🎯 What Do You Need Funding For?</h2>
+                <p class="section-description">Select all that apply - this helps us find the most relevant grants</p>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Start-up capital">
+                            <span>Start-up capital / launching a new business</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Equipment & machinery">
+                            <span>Equipment & machinery purchase</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Premises">
+                            <span>Premises (purchase, lease, renovation)</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Technology & software">
+                            <span>Technology & software systems</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Training & development">
+                            <span>Staff training & skills development</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Hiring & recruitment">
+                            <span>Hiring new employees</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Marketing & branding">
+                            <span>Marketing, advertising & branding</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Research & development">
+                            <span>Research & development / innovation</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Export & international">
+                            <span>Export / international expansion</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Energy efficiency">
+                            <span>Energy efficiency / sustainability</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Working capital">
+                            <span>Working capital / cash flow</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="grantPurpose" value="Other">
+                            <span>Other (please specify below)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Provide more details about what you need funding for <span class="required">*</span></label>
+                    <textarea name="fundingDetails" required placeholder="Be specific about what you plan to do with the funding and how it will help your business grow"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>How much funding are you looking for? <span class="required">*</span></label>
+                    <select name="fundingAmount" required>
+                        <option value="">Select range</option>
+                        <option value="Under £5,000">Under £5,000</option>
+                        <option value="£5,000 - £10,000">£5,000 - £10,000</option>
+                        <option value="£10,000 - £25,000">£10,000 - £25,000</option>
+                        <option value="£25,000 - £50,000">£25,000 - £50,000</option>
+                        <option value="£50,000 - £100,000">£50,000 - £100,000</option>
+                        <option value="Over £100,000">Over £100,000</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevSection(3)">Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextSection(5)">Continue</button>
+                </div>
+            </div>
+
+            <div class="form-card section hidden" id="section5">
+                <h2 class="section-title">📈 Business Impact & Goals</h2>
+                <p class="section-description">Funders want to know how the grant will help your business succeed</p>
+
+                <div class="form-group">
+                    <label>What will this funding allow you to achieve? <span class="required">*</span></label>
+                    <textarea name="fundingGoals" required placeholder="E.g., Increase production capacity by 50%, hire 3 new employees, expand into new markets, etc."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>How will this benefit your local community or economy? <span class="required">*</span></label>
+                    <textarea name="communityBenefit" required placeholder="E.g., Create local jobs, support local suppliers, provide services to underserved areas, etc."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>What makes your business unique or innovative?</label>
+                    <textarea name="uniqueValue" placeholder="What sets you apart from competitors? Any unique processes, technologies, or approaches?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Have you received any grants or funding before?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="previousFunding" value="No">
+                            <span>No, this is my first time applying</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="previousFunding" value="Yes - successful">
+                            <span>Yes, and I was successful</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="previousFunding" value="Yes - unsuccessful">
+                            <span>Yes, but I was unsuccessful</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevSection(4)">Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextSection(6)">Continue</button>
+                </div>
+            </div>
+
+            <div class="form-card section hidden" id="section6">
+                <h2 class="section-title">💰 Financial Information</h2>
+                <p class="section-description">This helps us demonstrate your business is financially viable</p>
+
+                <div class="form-group">
+                    <label>Do you have business bank statements available? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="bankStatements" value="Yes" required>
+                            <span>Yes, I can provide last 6 months</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="bankStatements" value="Partial" required>
+                            <span>Yes, but only last 3 months</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="bankStatements" value="No" required>
+                            <span>No / Not applicable</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you have recent financial accounts? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="accounts" value="Yes - audited" required>
+                            <span>Yes, audited accounts</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="accounts" value="Yes - management" required>
+                            <span>Yes, management accounts</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="accounts" value="No" required>
+                            <span>No / Business is too new</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Current business challenges or risks</label>
+                    <textarea name="challenges" placeholder="Any current challenges, debts, or risks we should be aware of? (This helps us address them proactively in applications)"></textarea>
+                    <p class="hint">Be honest - we can address these in the application</p>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevSection(5)">Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextSection(7)">Continue</button>
+                </div>
+            </div>
+
+            <div class="form-card section hidden" id="section7">
+                <h2 class="section-title">✅ Final Details</h2>
+                <p class="section-description">Almost done! Just a few more questions</p>
+
+                <div class="form-group">
+                    <label>How urgently do you need this funding? <span class="required">*</span></label>
+                    <select name="urgency" required>
+                        <option value="">Select urgency</option>
+                        <option value="Immediate">Immediate (within 1 month)</option>
+                        <option value="Soon">Soon (1-3 months)</option>
+                        <option value="Flexible">Flexible (3-6 months)</option>
+                        <option value="Planning">Just planning ahead (6+ months)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>How many grant applications would you like us to prepare? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="applicationCount" value="1" required>
+                            <span>1 application (£299)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="applicationCount" value="2-3" required>
+                            <span>2-3 applications (best chance of success)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="applicationCount" value="quarterly" required>
+                            <span>Quarterly package - up to 4 per quarter (£799)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Anything else we should know?</label>
+                    <textarea name="additionalInfo" placeholder="Any other information that might be relevant for your grant applications"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="consent" required>
+                        <span>I consent to BusinessDownloads.co.uk using this information to prepare grant applications on my behalf. I understand that all information will be kept confidential. <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevSection(6)">Back</button>
+                    <button type="submit" class="btn btn-primary">Submit Questionnaire</button>
+                </div>
+            </div>
+
+            <div class="form-card hidden" id="successMessage">
+                <div class="success-message">
+                    <div class="success-icon">✅</div>
+                    <h2>Thank You!</h2>
+                    <p><strong>Your questionnaire has been submitted successfully.</strong></p>
+                    <p>We'll review your information and identify the best grant opportunities for your business.</p>
+                    <p>You'll receive an email within 24-48 hours with:</p>
+                    <ul style="text-align: left; max-width: 500px; margin: 1rem auto; color: #334155;">
+                        <li>Recommended grants for your business</li>
+                        <li>Draft applications for your review</li>
+                        <li>Payment link to proceed</li>
+                    </ul>
+                    <p style="margin-top: 2rem;">
+                        <strong>Questions?</strong> Email us at support@businessdownloads.co.uk
+                    </p>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        let currentSection = 1;
+        const totalSections = 7;
+
+        function updateProgress() {
+            const progress = (currentSection / totalSections) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Section ${currentSection} of ${totalSections} - ${getSectionTitle(currentSection)}`;
+        }
+
+        function getSectionTitle(section) {
+            const titles = {
+                1: 'Contact Information',
+                2: 'Business Details',
+                3: 'Business Operations',
+                4: 'Grant Purpose',
+                5: 'Business Impact',
+                6: 'Financial Information',
+                7: 'Final Details'
+            };
+            return titles[section];
+        }
+
+        function nextSection(section) {
+            const currentSectionElement = document.getElementById(`section${currentSection}`);
+            const inputs = currentSectionElement.querySelectorAll('input[required], select[required], textarea[required]');
+            let valid = true;
+
+            inputs.forEach(input => {
+                if (!input.value) {
+                    valid = false;
+                    input.style.borderColor = '#ef4444';
+                } else {
+                    input.style.borderColor = '#e2e8f0';
+                }
+            });
+
+            if (!valid) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            document.getElementById(`section${currentSection}`).classList.add('hidden');
+            currentSection = section;
+            document.getElementById(`section${section}`).classList.remove('hidden');
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function prevSection(section) {
+            document.getElementById(`section${currentSection}`).classList.add('hidden');
+            currentSection = section;
+            document.getElementById(`section${section}`).classList.remove('hidden');
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('grantForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {};
+            
+            formData.forEach((value, key) => {
+                if (data[key]) {
+                    if (!Array.isArray(data[key])) {
+                        data[key] = [data[key]];
+                    }
+                    data[key].push(value);
+                } else {
+                    data[key] = value;
+                }
+            });
+            
+            console.log('Form submitted:', data);
+            
+            document.getElementById('section7').classList.add('hidden');
+            document.querySelector('.progress-container').classList.add('hidden');
+            document.getElementById('successMessage').classList.remove('hidden');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        updateProgress();
+    </script>
+</body>
+</html>
