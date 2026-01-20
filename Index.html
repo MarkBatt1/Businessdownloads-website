@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Downloads UK - Simple Business Tools for Small Businesses & Sole Traders</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1e3a8a;
+        }
+
+        .btn-secondary:hover {
+            background: #f3f4f6;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: #f9fafb;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e3a8a;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+
+        /* Resources Section */
+        .resources {
+            padding: 5rem 0;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .resource-item {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .resource-item h4 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 5rem 0;
+            background: #f9fafb;
+        }
+
+        .pricing-card {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .price {
+            font-size: 3rem;
+            color: #1e3a8a;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .price span {
+            font-size: 1.5rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .pricing-features li:before {
+            content: "✓ ";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Partners Section */
+        .partners {
+            padding: 5rem 0;
+        }
+
+        .partners-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .partner-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .partner-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .partner-card h3 {
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #10b981;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">BusinessDownloads.co.uk</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#partners">Partners</a></li>
+            </ul>
+            <a href="#" class="btn btn-secondary">Login</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Business Made Simple</h1>
+            <p>Easy-to-understand spreadsheets and tools for small businesses and sole traders.<br>Know your margins, set your prices, and grow with confidence.</p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn btn-primary">Start Your Free Trial</a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Everything You Need to Run Your Business</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Simple Spreadsheets</h3>
+                    <p>Pre-built templates in plain English. No complicated formulas to figure out - just enter your numbers and get clear answers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Pricing & Margins</h3>
+                    <p>Calculate exactly how much to charge for your products or services. Understand your profit margins instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Profit Tracking</h3>
+                    <p>See at a glance whether you're making money. Track your income and expenses with easy-to-use tools.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Partner Discounts</h3>
+                    <p>Access exclusive deals on insurance, card payment services, and other essential business tools.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Grant Finder</h3>
+                    <p>Discover grants and funding opportunities available for your business. We help you find money you didn't know existed.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Access Anywhere</h3>
+                    <p>Download your tools and use them offline, or access them online whenever you need them.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="resources">
+        <div class="container">
+            <h2 class="section-title">Business Tools Included</h2>
+            <div class="resources-grid">
+                <div class="resource-item">
+                    <h4>Pricing Calculator</h4>
+                    <p>Work out what to charge based on your costs and desired profit</p>
+                </div>
+                <div class="resource-item">
+                    <h4>Margin Tracker</h4>
+                    <p>Understand your profit margins in plain English</p>
+                </div>
+                <div class="resource-item">
+                    <h4>Cash Flow Planner</h4>
+                    <p>Predict when money comes in and goes out</p>
+                </div>
+                <div class="resource-item">
+                    <h4>Invoice Templates</h4>
+                    <p>Professional invoices ready to use</p>
+                </div>
+                <div class="resource-item">
+                    <h4>Expense Tracker</h4>
+                    <p>Keep on top of what you're spending</p>
+                </div>
+                <div class="resource-item">
+                    <h4>Break-Even Calculator</h4>
+                    <p>Know how much you need to sell to cover costs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="partners">
+        <div class="container">
+            <h2 class="section-title">Exclusive Partner Benefits</h2>
+            <div class="partners-intro">
+                <p>We've negotiated special rates with trusted partners to help you save money on essential business services.</p>
+            </div>
+            <div class="partner-categories">
+                <div class="partner-card">
+                    <h3>🛡️ Business Insurance</h3>
+                    <p>Discounted rates on professional indemnity, public liability, and other business insurance policies from leading providers.</p>
+                </div>
+                <div class="partner-card">
+                    <h3>💳 Card Services</h3>
+                    <p>Competitive rates on card payment processing and merchant services. Accept payments with confidence at lower costs.</p>
+                </div>
+                <div class="partner-card">
+                    <h3>💷 Grant Opportunities</h3>
+                    <p>Access our regularly updated database of grants, funding, and support schemes for small businesses and sole traders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Simple, Transparent Pricing</h2>
+            <div class="pricing-card">
+                <h3>Monthly Subscription</h3>
+                <div class="price">£19.99<span>/month</span></div>
+                <p>Everything you need to run your business better</p>
+                <ul class="pricing-features">
+                    <li>Access to all spreadsheet templates</li>
+                    <li>Regular updates and new tools</li>
+                    <li>Partner discounts and deals</li>
+                    <li>Grant finder database</li>
+                    <li>Email support</li>
+                    <li>Download and use offline</li>
+                    <li>Cancel anytime</li>
+                </ul>
+                <a href="#" class="btn btn-primary" style="width: 100%;">Start Free 7-Day Trial</a>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #6b7280;">No credit card required for trial</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Take Control of Your Business?</h2>
+            <p>Join hundreds of small businesses and sole traders who are already using our tools</p>
+            <a href="#" class="btn btn-secondary">Start Your Free Trial Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BusinessDownloads.co.uk</h4>
+                    <p>Simple business tools for small businesses and sole traders across the UK.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Centre</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BusinessDownloads.co.uk. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
