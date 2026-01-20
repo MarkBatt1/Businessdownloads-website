@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grant Application Services - BusinessDownloads.co.uk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #1e3a8a;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #64748b;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .step h3 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+        }
+
+        .pricing-card.featured {
+            border-color: #10b981;
+            position: relative;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .pricing-card h3 {
+            color: #1e3a8a;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            color: #1e3a8a;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .price-note {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: start;
+        }
+
+        .features li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h3 {
+            color: #1e3a8a;
+            margin-bottom: 0.75rem;
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #334155;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #1e3a8a;
+        }
+
+        .testimonial-role {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .grant-amount {
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .cta {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">BusinessDownloads.co.uk</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="grant-finder.html">Grant Finder</a></li>
+                <li><a href="grant-services.html">Grant Services</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Professional Grant Application Services</h1>
+            <p>Let us handle your grant applications while you focus on running your business. We use expert knowledge and AI technology to maximise your chances of success.</p>
+        </div>
+    </section>
+
+    <div class="main-content">
+        <div class="container">
+            
+            <section class="section">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Our streamlined process makes getting grant funding simple and stress-free</p>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Complete Questionnaire</h3>
+                        <p>Fill out our comprehensive business questionnaire - takes about 15 minutes</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>We Find Grants</h3>
+                        <p>Our system identifies the best grant opportunities for your business</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>We Write Applications</h3>
+                        <p>Our AI-powered system creates professional, compelling applications</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>You Approve & Submit</h3>
+                        <p>Review the application, make any changes, and we submit on your behalf</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Why Use Our Service?</h2>
+                
+                <div class="benefits">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">⏱️</div>
+                        <h3>Save Time</h3>
+                        <p>Grant applications take 5-10 hours each. We handle everything so you can focus on your business.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">📈</div>
+                        <h3>Higher Success Rate</h3>
+                        <p>Professional applications are 3x more likely to succeed than DIY attempts.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">💡</div>
+                        <h3>Expert Knowledge</h3>
+                        <p>We know what funders look for and how to present your business in the best light.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🎯</div>
+                        <h3>Tailored Applications</h3>
+                        <p>Each application is customised to match the specific grant criteria and your business.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔒</div>
+                        <h3>Confidential & Secure</h3>
+                        <p>Your business information is kept completely confidential and secure.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">✅</div>
+                        <h3>No Ongoing Commitment</h3>
+                        <p>Pay per application - no subscriptions or hidden fees.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Simple, Transparent Pricing</h2>
+                <p class="section-subtitle">Choose the service level that's right for your business</p>
+                
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>DIY Support</h3>
+                        <div class="price">£19.99<span style="font-size: 1rem;">/mo</span></div>
+                        <p class="price-note">Part of basic subscription</p>
+                        
+                        <ul class="features">
+                            <li>Access to grant database</li>
+                            <li>Application templates</li>
+                            <li>Writing tips & guidance</li>
+                            <li>Email support</li>
+                        </ul>
+                        
+                        <a href="#" class="btn">Get Started</a>
+                    </div>
+
+                    <div class="pricing-card featured">
+                        <span class="featured-badge">MOST POPULAR</span>
+                        <h3>Done-For-You</h3>
+                        <div class="price">£299<span style="font-size: 1rem;">/application</span></div>
+                        <p class="price-note">One-time fee per grant</p>
+                        
+                        <ul class="features">
+                            <li>Complete application writing</li>
+                            <li>Professional formatting</li>
+                            <li>Supporting documents prepared</li>
+                            <li>Unlimited revisions</li>
+                            <li>Submission on your behalf</li>
+                            <li>5-7 day turnaround</li>
+                        </ul>
+                        
+                        <a href="grant-questionnaire.html" class="btn btn-success">Start Application</a>
+                    </div>
+
+                    <div class="pricing-card">
+                        <h3>Quarterly Package</h3>
+                        <div class="price">£799<span style="font-size: 1rem;">/quarter</span></div>
+                        <p class="price-note">Save £397 per quarter</p>
+                        
+                        <ul class="features">
+                            <li>Up to 4 applications per quarter</li>
+                            <li>Proactive grant searching</li>
+                            <li>Priority processing</li>
+                            <li>Quarterly strategy call</li>
+                            <li>Success tracking & reporting</li>
+                            <li>Dedicated account manager</li>
+                        </ul>
+                        
+                        <a href="#" class="btn">Contact Us</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Success Stories</h2>
+                <p class="section-subtitle">Real businesses we've helped secure funding</p>
+                
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"I was drowning in paperwork and couldn't face another grant application. BusinessDownloads handled everything and we got the funding! Absolutely worth every penny."</p>
+                        <p class="testimonial-author">Sarah Mitchell</p>
+                        <p class="testimonial-role">Owner, Mitchell's Bakery</p>
+                        <span class="grant-amount">£12,500 Secured</span>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <p class="testimonial-text">"The team found grants I didn't even know existed. They wrote three applications for us and two were successful. Outstanding service and ROI."</p>
+                        <p class="testimonial-author">James Chen</p>
+                        <p class="testimonial-role">Director, Chen Tech Solutions</p>
+                        <span class="grant-amount">£28,000 Secured</span>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <p class="testimonial-text">"As a sole trader, I never thought I'd qualify for grants. They proved me wrong and helped me get funding for new equipment. Game changer for my business."</p>
+                        <p class="testimonial-author">David Thompson</p>
+                        <p class="testimonial-role">Electrician, DT Electrical</p>
+                        <span class="grant-amount">£8,500 Secured</span>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Secure Funding for Your Business?</h2>
+            <p>Start your grant application questionnaire now - takes just 15 minutes</p>
+            <a href="grant-questionnaire.html" class="btn" style="background: white; color: #10b981;">Start Questionnaire</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 BusinessDownloads.co.uk. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
