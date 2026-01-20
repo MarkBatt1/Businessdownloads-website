@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Grant Application Template - Internal Use Only</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f8fafc;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+
+        h1 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #1e3a8a;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        h3 {
+            color: #334155;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .template-box {
+            background: #f8fafc;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: #1e3a8a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn:hover {
+            background: #3b82f6;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .instruction {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        ul {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        .steps {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .steps ol {
+            margin-left: 1.5rem;
+        }
+
+        .steps li {
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="warning">
+            ⚠️ <strong>INTERNAL USE ONLY</strong> - This page is for BusinessDownloads.co.uk staff only. Do not share this URL publicly.
+        </div>
+
+        <h1>AI Grant Application Template</h1>
+        <p class="subtitle">Use this template to generate professional grant applications using ChatGPT or Claude</p>
+
+        <div class="steps">
+            <h3>📋 How to Use This Template:</h3>
+            <ol>
+                <li><strong>Client submits questionnaire</strong> - You receive their form data via email</li>
+                <li><strong>Copy the template below</strong> - Click "Copy Template" button</li>
+                <li><strong>Replace [BRACKETS]</strong> - Fill in with client's actual information</li>
+                <li><strong>Paste into ChatGPT/Claude</strong> - Use GPT-4 or Claude Sonnet for best results</li>
+                <li><strong>Review & refine output</strong> - Edit the AI-generated application</li>
+                <li><strong>Send to client for approval</strong> - Get their sign-off</li>
+                <li><strong>Invoice £299</strong> - Send payment link</li>
+                <li><strong>Submit application</strong> - Once paid, submit to grant provider</li>
+            </ol>
+        </div>
+
+        <h2>Master Prompt Template</h2>
+
+        <div class="template-box">
+            <button class="copy-btn" onclick="copyTemplate()">Copy Template</button>
+            <pre id="mainTemplate">You are a professional grant writer helping a UK small business apply for funding. 
+Generate a compelling grant application based on the following business information.
+
+The application should be:
+- Professional and persuasive
+- Specific and detailed
+- Focused on impact and outcomes
+- Compliant with UK grant application standards
+- Between 800-1200 words
+
+---
+
+GRANT DETAILS:
+Grant Name: [INSERT GRANT NAME]
+Grant Provider: [INSERT PROVIDER - e.g., Innovate UK, Local Council, etc.]
+Maximum Funding Available: [INSERT AMOUNT]
+Grant Purpose: [INSERT PURPOSE - e.g., Innovation, Equipment, Training, etc.]
+
+---
+
+BUSINESS INFORMATION:
+
+Business Name: [Business Name from questionnaire]
+Trading Since: [Start Date from questionnaire]
+Legal Structure: [Sole Trader / Ltd / Partnership]
+Industry Sector: [Sector from questionnaire]
+Location: [City, Postcode from questionnaire]
+Employees: [Number from questionnaire]
+Annual Turnover: [Range from questionnaire]
+
+Business Description:
+[Paste client's business description from questionnaire]
+
+What They Do:
+[Detailed explanation of products/services from questionnaire]
+
+---
+
+FUNDING REQUEST:
+
+Amount Requested: [Specific amount or range from questionnaire]
+
+What Funding Is For:
+[List specific purposes from questionnaire - equipment, staff, premises, etc.]
+
+Detailed Use of Funds:
+[Paste client's detailed explanation of funding needs from questionnaire]
+
+---
+
+PROJECT GOALS & IMPACT:
+
+What This Funding Will Achieve:
+[Paste client's goals from questionnaire - e.g., increase capacity, hire staff, expand]
+
+Community/Economic Benefit:
+[Paste client's explanation of local impact from questionnaire]
+
+Unique Value Proposition:
+[What makes this business special/innovative from questionnaire]
+
+---
+
+FINANCIAL INFORMATION:
+
+Financial Position:
+- Bank statements available: [Yes/No/Partial from questionnaire]
+- Recent accounts: [Yes - audited/management / No from questionnaire]
+- Current challenges: [Any mentioned challenges from questionnaire]
+
+---
+
+ADDITIONAL CONTEXT:
+
+Previous Funding: [Yes successful / Yes unsuccessful / No from questionnaire]
+Urgency: [Immediate / Soon / Flexible / Planning from questionnaire]
+Number of Applications Needed: [1 / 2-3 / Quarterly package from questionnaire]
+
+---
+
+INSTRUCTIONS FOR AI:
+
+Please generate a complete grant application that includes:
+
+1. Executive Summary (150-200 words)
+   - Brief overview of business and funding request
+   - Key impact statistics
+
+2. Business Background (200-250 words)
+   - Company history and structure
+   - Current operations and market position
+   - Track record and achievements
+
+3. Project Description (250-300 words)
+   - Detailed explanation of what funding will be used for
+   - Timeline and milestones
+   - Specific deliverables
+
+4. Impact & Benefits (200-250 words)
+   - Economic impact (jobs, growth, turnover)
+   - Community benefits
+   - Long-term sustainability
+   - Measurable outcomes
+
+5. Financial Justification (150-200 words)
+   - Budget breakdown
+   - Value for money
+   - Financial viability
+   - Return on investment for funder
+
+6. Risk Management (100-150 words)
+   - Potential challenges and mitigation strategies
+   - Contingency plans
+
+7. Conclusion (100 words)
+   - Summary of why funding should be awarded
+   - Call to action for grant assessor
+
+---
+
+TONE & STYLE REQUIREMENTS:
+
+- Professional but accessible
+- Evidence-based with specific examples
+- Confident but not arrogant
+- Focus on outcomes and impact
+- Use active voice
+- Include specific numbers and metrics where possible
+- Address grant criteria directly
+- Show understanding of funder's priorities
+
+Please generate the application now.</pre>
+        </div>
+
+        <h2>Quick Reference: Common Grant Types</h2>
+
+        <h3>1. Start Up Loans (£500-£25,000)</h3>
+        <div class="instruction">
+            <strong>Focus on:</strong> Business viability, founder's commitment, realistic financial projections<br>
+            <strong>Key words:</strong> "sustainable", "market research", "business plan", "job creation"
+        </div>
+
+        <h3>2. Innovate UK Grants (£25,000-£100,000+)</h3>
+        <div class="instruction">
+            <strong>Focus on:</strong> Innovation, R&D, technical feasibility, market potential<br>
+            <strong>Key words:</strong> "cutting-edge", "research", "development", "innovation", "competitive advantage"
+        </div>
+
+        <h3>3. Local Authority Grants (varies)</h3>
+        <div class="instruction">
+            <strong>Focus on:</strong> Local economic development, job creation, community benefit<br>
+            <strong>Key words:</strong> "local jobs", "community", "economic growth", "local suppliers"
+        </div>
+
+        <h3>4. Skills Training Grants (up to £3,000 per employee)</h3>
+        <div class="instruction">
+            <strong>Focus on:</strong> Skills gap, training plan, business benefit, employee development<br>
+            <strong>Key words:</strong> "upskilling", "productivity", "competitiveness", "career development"
+        </div>
+
+        <h3>5. Green Business Grants (£5,000-£50,000)</h3>
+        <div class="instruction">
+            <strong>Focus on:</strong> Environmental impact, carbon reduction, energy efficiency<br>
+            <strong>Key words:</strong> "sustainability", "carbon footprint", "renewable", "energy saving"
+        </div>
+
+        <h3>6. Export Grants (up to £20,000)</h3>
+        <div class="instruction">
+            <strong>Focus on:</strong> Export readiness, market research, international growth<br>
+            <strong>Key words:</strong> "export", "international markets", "overseas expansion", "competitiveness"
+        </div>
+
+        <h2>Tips for Better AI Results</h2>
+
+        <ul>
+            <li><strong>Be specific:</strong> The more detail you provide, the better the output</li>
+            <li><strong>Include real numbers:</strong> Actual figures make applications more credible</li>
+            <li><strong>Match grant criteria:</strong> Research what the funder is looking for</li>
+            <li><strong>Use follow-up prompts:</strong> Ask AI to expand sections or adjust tone</li>
+            <li><strong>Always review:</strong> Never send AI output without human review</li>
+        </ul>
+
+        <h3>Follow-up Prompts to Improve Output:</h3>
+        <div class="template-box">
+            <pre>"Make the impact section more quantitative with specific metrics"
+
+"Expand the budget breakdown with more detail"
+
+"Add more emphasis on job creation and local economic benefit"
+
+"Make the tone more formal and professional"
+
+"Reduce word count by 20% while keeping all key points"
+
+"Add a stronger conclusion with clear call to action"</pre>
+        </div>
+
+        <h2>Quality Checklist</h2>
+
+        <p>Before sending to client, verify:</p>
+        <ul>
+            <li>✅ All facts are accurate and verifiable</li>
+            <li>✅ Numbers and dates are correct</li>
+            <li>✅ Grant-specific criteria are addressed</li>
+            <li>✅ Word count is within limits</li>
+            <li>✅ Tone is appropriate for funder</li>
+            <li>✅ No grammatical errors or typos</li>
+            <li>✅ All required sections are included</li>
+            <li>✅ Financial information is realistic</li>
+            <li>✅ Impact statements are measurable</li>
+            <li>✅ Contact details are correct</li>
+        </ul>
+
+        <h2>Client Communication Template</h2>
+
+        <div class="template-box">
+            <button class="copy-btn" onclick="copyEmail()">Copy Email</button>
+            <pre id="emailTemplate">Subject: Your Grant Application Draft - [Grant Name]
+
+Hi [Client Name],
+
+Thank you for submitting your grant questionnaire. I've prepared a draft application for the [Grant Name] grant worth [Amount].
+
+Please review the attached application carefully and let me know if:
+- All information is accurate
+- You'd like any changes or additions
+- You have any supporting documents to include
+
+Once you approve the draft, I'll send over the invoice for £299. Upon payment, I'll submit the final application on your behalf by [Deadline Date].
+
+The application highlights:
+• [Key point 1]
+• [Key point 2]
+• [Key point 3]
+
+Please reply with your approval or any requested changes within 48 hours so we can meet the submission deadline.
+
+Best regards,
+[Your Name]
+BusinessDownloads.co.uk</pre>
+        </div>
+
+    </div>
+
+    <script>
+        function copyTemplate() {
+            const template = document.getElementById('mainTemplate').innerText;
+            navigator.clipboard.writeText(template).then(() => {
+                const btn = event.target;
+                btn.textContent = 'Copied!';
+                btn.style.background = '#10b981';
+                setTimeout(() => {
+                    btn.textContent = 'Copy Template';
+                    btn.style.background = '#1e3a8a';
+                }, 2000);
+            });
+        }
+
+        function copyEmail() {
+            const template = document.getElementById('emailTemplate').innerText;
+            navigator.clipboard.writeText(template).then(() => {
+                const btn = event.target;
+                btn.textContent = 'Copied!';
+                btn.style.background = '#10b981';
+                setTimeout(() => {
+                    btn.textContent = 'Copy Email';
+                    btn.style.background = '#1e3a8a';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
