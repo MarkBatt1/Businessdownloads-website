@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Grant Finder - BusinessDownloads.co.uk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #64748b;
+        }
+
+        .progress-bar {
+            margin-bottom: 2rem;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-label {
+            color: #94a3b8;
+        }
+
+        .progress-label.active {
+            color: #1e3a8a;
+            font-weight: bold;
+        }
+
+        .progress-track {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+            transition: width 0.3s;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #1e3a8a;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .checkbox-label input {
+            margin-right: 0.5rem;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            flex: 2;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary {
+            flex: 1;
+            background: white;
+            color: #1e3a8a;
+            border: 2px solid #1e3a8a;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f9ff;
+        }
+
+        .btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #1e3a8a;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .results-header {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-header h2 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        .results-header p {
+            color: #64748b;
+        }
+
+        .results-header button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: #f1f5f9;
+            color: #1e3a8a;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .grant-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid #10b981;
+            margin-bottom: 1.5rem;
+        }
+
+        .grant-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .grant-header h3 {
+            color: #1e3a8a;
+            margin-bottom: 0.25rem;
+        }
+
+        .grant-provider {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .grant-type {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .grant-type.grant {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .grant-type.loan {
+            background: #dbeafe;
+            color: #1e3a8a;
+        }
+
+        .grant-description {
+            color: #334155;
+            margin-bottom: 1rem;
+        }
+
+        .grant-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .grant-detail-item {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .grant-detail-value {
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-top: 0.25rem;
+        }
+
+        .grant-eligibility {
+            margin-bottom: 1rem;
+        }
+
+        .grant-eligibility-title {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        .grant-eligibility ul {
+            margin-left: 1.5rem;
+            color: #334155;
+        }
+
+        .grant-eligibility li {
+            margin-bottom: 0.25rem;
+        }
+
+        .grant-apply {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .grant-apply:hover {
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .grant-details {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Business Grant Finder</h1>
+            <p>Discover grants and funding opportunities for your business</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div id="progressBar" class="progress-bar">
+            <div class="progress-labels">
+                <span id="label1" class="progress-label active">Step 1: Basic Info</span>
+                <span id="label2" class="progress-label">Step 2: Details</span>
+            </div>
+            <div class="progress-track">
+                <div id="progressFill" class="progress-fill" style="width: 50%;"></div>
+            </div>
+        </div>
+
+        <!-- Step 1 -->
+        <div id="step1" class="card">
+            <h2>📍 Tell us about your business</h2>
+            
+            <div class="form-group">
+                <label for="postcode">Postcode</label>
+                <input type="text" id="postcode" placeholder="e.g. SW1A 1AA">
+            </div>
+
+            <div class="form-group">
+                <label for="sector">Business Sector</label>
+                <select id="sector">
+                    <option value="">Select your sector</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Hospitality & Catering">Hospitality & Catering</option>
+                    <option value="Construction & Trades">Construction & Trades</option>
+                    <option value="Professional Services">Professional Services</option>
+                    <option value="Creative & Media">Creative & Media</option>
+                    <option value="Technology & IT">Technology & IT</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Healthcare & Social Care">Healthcare & Social Care</option>
+                    <option value="Education & Training">Education & Training</option>
+                    <option value="Agriculture & Farming">Agriculture & Farming</option>
+                    <option value="Transportation & Logistics">Transportation & Logistics</option>
+                    <option value="Beauty & Wellness">Beauty & Wellness</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="yearsInBusiness">How long have you been in business? (Years)</label>
+                <input type="number" id="yearsInBusiness" min="0" placeholder="0">
+            </div>
+
+            <button id="continueBtn" class="btn btn-primary" disabled>Continue to Step 2</button>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="step2" class="card hidden">
+            <h2>📋 Additional Details</h2>
+
+            <div class="form-group">
+                <label for="businessSize">Business Size</label>
+                <select id="businessSize">
+                    <option value="">Select business size</option>
+                    <option value="Sole Trader">Sole Trader</option>
+                    <option value="2-5 employees">2-5 employees</option>
+                    <option value="6-10 employees">6-10 employees</option>
+                    <option value="11-50 employees">11-50 employees</option>
+                    <option value="50+ employees">50+ employees</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="turnover">Annual Turnover</label>
+                <select id="turnover">
+                    <option value="">Select turnover range</option>
+                    <option value="Under £50,000">Under £50,000</option>
+                    <option value="£50,000 - £100,000">£50,000 - £100,000</option>
+                    <option value="£100,000 - £250,000">£100,000 - £250,000</option>
+                    <option value="£250,000 - £500,000">£250,000 - £500,000</option>
+                    <option value="Over £500,000">Over £500,000</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>What are you looking for? (Select all that apply)</label>
+                <div class="checkbox-grid" id="purposeCheckboxes"></div>
+            </div>
+
+            <div class="button-group">
+                <button id="backBtn" class="btn btn-secondary">Back</button>
+                <button id="searchBtn" class="btn btn-primary">🔍 Find Grants</button>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="card hidden">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p style="font-size: 1.2rem; color: #64748b;">Searching grant databases...</p>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="hidden">
+            <div class="results-header">
+                <h2 id="resultsCount"></h2>
+                <p id="resultsInfo"></p>
+                <button id="newSearchBtn">New Search</button>
+            </div>
+            <div id="grantsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentStep = 1;
+        const formData = {
+            postcode: '',
+            sector: '',
+            yearsInBusiness: '',
+            businessSize: '',
+            turnover: '',
+            lookingFor: []
+        };
+
+        const grantPurposes = [
+            'Start-up funding',
+            'Equipment & machinery',
+            'Training & development',
+            'Technology & innovation',
+            'Export & international trade',
+            'Research & development',
+            'Energy efficiency',
+            'Expansion & growth',
+            'Hiring & recruitment'
+        ];
+
+        // Initialize checkboxes
+        const purposeContainer = document.getElementById('purposeCheckboxes');
+        grantPurposes.forEach(purpose => {
+            const label = document.createElement('label');
+            label.className = 'checkbox-label';
+            label.innerHTML = `
+                <input type="checkbox" value="${purpose}">
+                <span>${purpose}</span>
+            `;
+            purposeContainer.appendChild(label);
+        });
+
+        // Event listeners
+        document.getElementById('postcode').addEventListener('input', (e) => {
+            formData.postcode = e.target.value.toUpperCase();
+            e.target.value = formData.postcode;
+            checkStep1();
+        });
+
+        document.getElementById('sector').addEventListener('change', (e) => {
+            formData.sector = e.target.value;
+            checkStep1();
+        });
+
+        document.getElementById('yearsInBusiness').addEventListener('input', (e) => {
+            formData.yearsInBusiness = e.target.value;
+            checkStep1();
+        });
+
+        document.getElementById('businessSize').addEventListener('change', (e) => {
+            formData.businessSize = e.target.value;
+        });
+
+        document.getElementById('turnover').addEventListener('change', (e) => {
+            formData.turnover = e.target.value;
+        });
+
+        purposeContainer.addEventListener('change', (e) => {
+            if (e.target.type === 'checkbox') {
+                if (e.target.checked) {
+                    formData.lookingFor.push(e.target.value);
+                } else {
+                    formData.lookingFor = formData.lookingFor.filter(item => item !== e.target.value);
+                }
+            }
+        });
+
+        document.getElementById('continueBtn').addEventListener('click', () => {
+            showStep(2);
+        });
+
+        document.getElementById('backBtn').addEventListener('click', () => {
+            showStep(1);
+        });
+
+        document.getElementById('searchBtn').addEventListener('click', () => {
+            searchGrants();
+        });
+
+        document.getElementById('newSearchBtn').addEventListener('click', () => {
+            resetSearch();
+        });
+
+        function checkStep1() {
+            const continueBtn = document.getElementById('continueBtn');
+            if (formData.postcode && formData.sector && formData.yearsInBusiness) {
+                continueBtn.disabled = false;
+            } else {
+                continueBtn.disabled = true;
+            }
+        }
+
+        function showStep(step) {
+            currentStep = step;
+            document.getElementById('step1').classList.toggle('hidden', step !== 1);
+            document.getElementById('step2').classList.toggle('hidden', step !== 2);
+            document.getElementById('progressBar').classList.toggle('hidden', step === 3);
+            
+            document.getElementById('label1').classList.toggle('active', step >= 1);
+            document.getElementById('label2').classList.toggle('active', step >= 2);
+            document.getElementById('progressFill').style.width = `${(step / 2) * 100}%`;
+        }
+
+        async function searchGrants() {
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            const results = generateMockResults(formData);
+            displayResults(results);
+        }
+
+        function generateMockResults(data) {
+            const allGrants = [
+                {
+                    name: 'Start Up Loans',
+                    provider: 'British Business Bank',
+                    amount: '£500 - £25,000',
+                    type: 'loan',
+                    description: 'Government-backed loans for new and early-stage businesses.',
+                    eligibility: ['Under 2 years in business', 'UK-based business'],
+                    deadline: 'Rolling applications',
+                    link: 'https://www.startuploans.co.uk'
+                },
+                {
+                    name: 'Local Business Grant Scheme',
+                    provider: 'Local Council',
+                    amount: 'Up to £5,000',
+                    type: 'grant',
+                    description: 'Support for small businesses in your local area for growth and development.',
+                    eligibility: ['Based in local authority area', 'Under 10 employees'],
+                    deadline: '30 June 2026',
+                    link: '#'
+                },
+                {
+                    name: 'Innovation Grant',
+                    provider: 'Innovate UK',
+                    amount: '£25,000 - £100,000',
+                    type: 'grant',
+                    description: 'Funding for innovative technology and R&D projects.',
+                    eligibility: ['Technology sector', 'Innovation-focused project'],
+                    deadline: '15 March 2026',
+                    link: 'https://www.ukri.org/councils/innovate-uk'
+                },
+                {
+                    name: 'Retail Business Support Fund',
+                    provider: 'Local Enterprise Partnership',
+                    amount: 'Up to £10,000',
+                    type: 'grant',
+                    description: 'Financial support for retail businesses to improve premises and operations.',
+                    eligibility: ['Retail sector', 'Physical premises'],
+                    deadline: '31 May 2026',
+                    link: '#'
+                },
+                {
+                    name: 'Skills Training Grant',
+                    provider: 'Department for Education',
+                    amount: 'Up to £3,000 per employee',
+                    type: 'grant',
+                    description: 'Funding for employee training and professional development.',
+                    eligibility: ['All sectors', 'Training must be job-related'],
+                    deadline: 'Rolling applications',
+                    link: '#'
+                },
+                {
+                    name: 'Green Business Fund',
+                    provider: 'Environment Agency',
+                    amount: '£5,000 - £50,000',
+                    type: 'grant',
+                    description: 'Support for businesses investing in energy efficiency and sustainability.',
+                    eligibility: ['Energy efficiency improvements', 'Renewable energy installation'],
+                    deadline: '20 April 2026',
+                    link: '#'
+                },
+                {
+                    name: 'Export Growth Fund',
+                    provider: 'Department for Business and Trade',
+                    amount: 'Up to £20,000',
+                    type: 'grant',
+                    description: 'Support for businesses looking to export or expand internationally.',
+                    eligibility: ['Exporting or planning to export', '1+ years in business'],
+                    deadline: '10 July 2026',
+                    link: '#'
+                }
+            ];
+
+            let filtered = [...allGrants];
+
+            // Filter based on criteria
+            if (data.sector === 'Retail') {
+                filtered = filtered.filter(g => 
+                    g.name.includes('Retail') || 
+                    g.eligibility.includes('All sectors') ||
+                    g.name.includes('Local Business')
+                );
+            } else if (data.sector === 'Technology & IT') {
+                filtered = filtered.filter(g => 
+                    g.name.includes('Innovation') || 
+                    g.eligibility.includes('Technology sector') ||
+                    g.eligibility.includes('All sectors')
+                );
+            }
+
+            const yearsNum = parseInt(data.yearsInBusiness) || 0;
+            if (yearsNum < 2 && !filtered.find(g => g.name.includes('Start Up'))) {
+                filtered.push(allGrants[0]);
+            }
+
+            if (data.lookingFor.includes('Training & development') && !filtered.find(g => g.name.includes('Skills'))) {
+                filtered.push(allGrants[4]);
+            }
+            if (data.lookingFor.includes('Energy efficiency') && !filtered.find(g => g.name.includes('Green'))) {
+                filtered.push(allGrants[5]);
+            }
+            if (data.lookingFor.includes('Export & international trade') && !filtered.find(g => g.name.includes('Export'))) {
+                filtered.push(allGrants[6]);
+            }
+
+            // Remove duplicates
+            const unique = Array.from(new Set(filtered.map(g => g.name)))
+                .map(name => filtered.find(g => g.name === name));
+
+            return unique.slice(0, 6);
+        }
+
+        function displayResults(grants) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+            
+            document.getElementById('resultsCount').textContent = `Found ${grants.length} grant opportunities`;
+            document.getElementById('resultsInfo').textContent = 
+                `Based on: ${formData.sector} • ${formData.postcode} • ${formData.yearsInBusiness} years in business`;
+
+            const container = document.getElementById('grantsContainer');
+            container.innerHTML = '';
+
+            grants.forEach(grant => {
+                const card = document.createElement('div');
+                card.className = 'grant-card';
+                card.innerHTML = `
+                    <div class="grant-header">
+                        <div>
+                            <h3>${grant.name}</h3>
+                            <div class="grant-provider">${grant.provider}</div>
+                        </div>
+                        <span class="grant-type ${grant.type}">${grant.type === 'grant' ? 'Grant' : 'Loan'}</span>
+                    </div>
+                    <p class="grant-description">${grant.description}</p>
+                    <div class="grant-details">
+                        <div class="grant-detail-item">
+                            <div>Amount</div>
+                            <div class="grant-detail-value">${grant.amount}</div>
+                        </div>
+                        <div class="grant-detail-item">
+                            <div>Deadline</div>
+                            <div class="grant-detail-value">${grant.deadline}</div>
+                        </div>
+                    </div>
+                    <div class="grant-eligibility">
+                        <div class="grant-eligibility-title">Eligibility:</div>
+                        <ul>
+                            ${grant.eligibility.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <a href="${grant.link}" class="grant-apply" target="_blank" rel="noopener noreferrer">
+                        Learn More & Apply
+                    </a>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function resetSearch() {
+            formData.postcode = '';
+            formData.sector = '';
+            formData.yearsInBusiness = '';
+            formData.businessSize = '';
+            formData.turnover = '';
+            formData.lookingFor = [];
+
+            document.getElementById('postcode').value = '';
+            document.getElementById('sector').value = '';
+            document.getElementById('yearsInBusiness').value = '';
+            document.getElementById('businessSize').value = '';
+            document.getElementById('turnover').value = '';
+            
+            const checkboxes = purposeContainer.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+
+            document.getElementById('results').classList.add('hidden');
+            showStep(1);
+        }
+    </script>
+</body>
+</html>
