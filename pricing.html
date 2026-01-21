@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Plan - BusinessDownloads.co.uk</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            color: #1e3a8a;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+        }
+
+        .pricing-card.featured {
+            border-color: #10b981;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .pricing-card h3 {
+            color: #1e3a8a;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            color: #1e3a8a;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .price span {
+            font-size: 1rem;
+        }
+
+        .price-note {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: start;
+        }
+
+        .features li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+        }
+
+        .btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-link a {
+            color: #1e3a8a;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Choose Your Plan</h1>
+            <p>Get instant access to all business tools and spreadsheets</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Monthly</h3>
+                <div class="price">£19.99<span>/month</span></div>
+                <p class="price-note">Billed monthly - Cancel anytime</p>
+                
+                <ul class="features">
+                    <li>Access to all spreadsheet templates</li>
+                    <li>Regular updates and new tools</li>
+                    <li>Partner discounts and deals</li>
+                    <li>Grant finder database</li>
+                    <li>Email support</li>
+                    <li>Download and use offline</li>
+                    <li>Cancel anytime</li>
+                </ul>
+                
+                <button class="btn" onclick="checkout('monthly')">
+                    Start Monthly Plan
+                </button>
+            </div>
+
+            <div class="pricing-card featured">
+                <span class="featured-badge">BEST VALUE</span>
+                <h3>Annual</h3>
+                <div class="price">£199<span>/year</span></div>
+                <p class="price-note">Save £40 per year!</p>
+                
+                <ul class="features">
+                    <li>Everything in Monthly, plus:</li>
+                    <li><strong>2 months free</strong></li>
+                    <li>Priority email support</li>
+                    <li>Early access to new tools</li>
+                    <li>Quarterly business tips newsletter</li>
+                    <li>Lock in current price</li>
+                    <li>Annual invoice for accounting</li>
+                </ul>
+                
+                <button class="btn btn-success" onclick="checkout('annual')">
+                    Start Annual Plan
+                </button>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">← Back to homepage</a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://lhtiilpdfyujumgeuxaq.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodGlpbHBkZnl1anVtZ2V1eGFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MzgyODYsImV4cCI6MjA4NDUxNDI4Nn0.DupipVp6kIExhKUKV5hhDPuN9_uIILA20DRrPu9X2CE';
+        const { createClient } = supabase;
+        const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+        // Initialize Stripe (only public key - safe to expose)
+        const stripe = Stripe('pk_test_51SrngCJCw3w23ST9RrmtHZMdSyN8vFVBGSlSapJMFGRJDE5f19a2pQyM681d5d5liiqxAz8jBpWoE3z1zSiTOB1B00lzQjLMYW');
+
+        const priceIds = {
+            monthly: 'price_1Ss7xMJ9jd3gtLLwGt6fYJER',
+            annual: 'price_1Ss7wRJ9jd3gtLLwkYdJMLLL'
+        };
+
+        async function checkout(plan) {
+            // Check if user is logged in
+            const { data: { user } } = await supabaseClient.auth.getUser();
+
+            if (!user) {
+                // Redirect to signup if not logged in
+                window.location.href = 'signup.html';
+                return;
+            }
+
+            // Disable button
+            event.target.disabled = true;
+            event.target.textContent = 'Loading...';
+
+            try {
+                // Call our secure serverless function
+                const response = await fetch('/.netlify/functions/create-checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        priceId: priceIds[plan],
+                        email: user.email,
+                        userId: user.id
+                    })
+                });
+
+                const { sessionId, error } = await response.json();
+
+                if (error) {
+                    throw new Error(error);
+                }
+
+                // Redirect to Stripe checkout
+                const result = await stripe.redirectToCheckout({ sessionId });
+
+                if (result.error) {
+                    alert(result.error.message);
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+            } finally {
+                event.target.disabled = false;
+                event.target.textContent = plan === 'monthly' ? 'Start Monthly Plan' : 'Start Annual Plan';
+            }
+        }
+    </script>
+</body>
+</html>
