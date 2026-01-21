@@ -22,8 +22,8 @@ exports.handler = async (event) => {
         },
       ],
       mode: 'subscription',
-      success_url: `${process.env.URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.URL}/pricing.html`,
+      success_url: `${process.env.SITE_URL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.SITE_URL}/pricing.html`,
       customer_email: email,
       client_reference_id: userId,
     });
