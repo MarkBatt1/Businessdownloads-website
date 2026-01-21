@@ -1,0 +1,8 @@
+{
+  "name": "businessdownloads-functions",
+  "version": "1.0.0",
+  "description": "Serverless functions for BusinessDownloads.co.uk",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  }
+}
