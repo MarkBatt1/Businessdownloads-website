@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members Area - BusinessDownloads.co.uk</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-logout {
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .welcome {
+            margin-bottom: 3rem;
+        }
+
+        .welcome h1 {
+            color: #1e3a8a;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            color: #1e3a8a;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card h3 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-download {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+        }
+
+        .quick-links {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .quick-links h3 {
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-link {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 6px;
+            display: block;
+            text-align: center;
+            transition: background 0.2s;
+        }
+
+        .quick-link:hover {
+            background: #dbeafe;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">BusinessDownloads.co.uk</div>
+            <div class="user-menu">
+                <span id="userEmail">Loading...</span>
+                <button class="btn-logout" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="content" style="display: none;">
+        <div class="welcome">
+            <h1>Welcome to Your Members Area</h1>
+            <p>Access all your business tools and spreadsheets below</p>
+        </div>
+
+        <div class="section">
+            <h2>📊 Spreadsheet Templates</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">💰</div>
+                    <h3>Pricing Calculator</h3>
+                    <p>Calculate the right price for your products or services based on costs and desired profit margins.</p>
+                    <a href="#" class="btn-download" onclick="alert('Download functionality coming soon!')">Download</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📈</div>
+                    <h3>Margin Tracker</h3>
+                    <p>Track and analyze your profit margins across different products and services.</p>
+                    <a href="#" class="btn-download" onclick="alert('Download functionality coming soon!')">Download</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">💵</div>
+                    <h3>Cash Flow Planner</h3>
+                    <p>Plan and forecast your business cash flow to avoid surprises and manage finances better.</p>
+                    <a href="#" class="btn-download" onclick="alert('Download functionality coming soon!')">Download</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📄</div>
+                    <h3>Invoice Templates</h3>
+                    <p>Professional invoice templates ready to customize with your business details.</p>
+                    <a href="#" class="btn-download" onclick="alert('Download functionality coming soon!')">Download</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">💳</div>
+                    <h3>Expense Tracker</h3>
+                    <p>Keep track of all your business expenses in one organized spreadsheet.</p>
+                    <a href="#" class="btn-download" onclick="alert('Download functionality coming soon!')">Download</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">⚖️</div>
+                    <h3>Break-Even Calculator</h3>
+                    <p>Calculate how much you need to sell to break even and start making profit.</p>
+                    <a href="#" class="btn-download" onclick="alert('Download functionality coming soon!')">Download</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-links">
+            <h3>🔗 Quick Links</h3>
+            <div class="links-grid">
+                <a href="grant-finder.html" class="quick-link">Grant Finder</a>
+                <a href="grant-services.html" class="quick-link">Grant Services</a>
+                <a href="#" class="quick-link">Partner Discounts</a>
+                <a href="#" class="quick-link">Support</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading" id="loading">
+        <p>Loading your account...</p>
+    </div>
+
+    <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://lhtiilpdfyujumgeuxaq.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodGlpbHBkZnl1anVtZ2V1eGFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MzgyODYsImV4cCI6MjA4NDUxNDI4Nn0.DupipVp6kIExhKUKV5hhDPuN9_uIILA20DRrPu9X2CE';
+        const { createClient } = supabase;
+        const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+        async function checkAuth() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+
+            if (!user) {
+                // Not logged in - redirect to login
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // User is logged in
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+
+            // TODO: Check if user has active subscription via Stripe
+            // For now, we allow access to anyone logged in
+        }
+
+        async function logout() {
+            await supabaseClient.auth.signOut();
+            window.location.href = 'index.html';
+        }
+
+        // Check authentication on page load
+        checkAuth();
+    </script>
+</body>
+</html>
