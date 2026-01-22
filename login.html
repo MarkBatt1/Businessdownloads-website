@@ -175,9 +175,9 @@
     </div>
 
     <script>
-        // Initialize Supabase
-        const supabaseUrl = 'https://lhtiilpdfyujumgeuxaq.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodGlpbHBkZnl1anVtZ2V1eGFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MzgyODYsImV4cCI6MjA4NDUxNDI4Nn0.DupipVp6kIExhKUKV5hhDPuN9_uIILA20DRrPu9X2CE';
+        // Initialize Supabase - CORRECTED URL TO MATCH MEMBERS.HTML
+        const supabaseUrl = 'https://hwkqvdvyifdczxfzjqqg.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3a3F2ZHZ5aWZkY3p4ZnpqcXFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY5NTEwNjIsImV4cCI6MjA1MjUyNzA2Mn0.VOpBdrcnPEyX_A3LvC86Z-Yn25M2G6Qg4wSLxX21VnI';
         const { createClient } = supabase;
         const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
@@ -198,6 +198,7 @@
 
             loginBtn.disabled = true;
             loginBtn.textContent = 'Signing in...';
+            errorMessage.style.display = 'none';
 
             try {
                 const { data, error } = await supabaseClient.auth.signInWithPassword({
@@ -207,13 +208,14 @@
 
                 if (error) throw error;
 
-                // Check if user has active subscription
-                // For now, redirect to members area
+                console.log('Login successful!', data);
+                
+                // Redirect to members area
                 window.location.href = 'members.html';
 
             } catch (error) {
+                console.error('Login error:', error);
                 showError(error.message);
-            } finally {
                 loginBtn.disabled = false;
                 loginBtn.textContent = 'Sign In';
             }
