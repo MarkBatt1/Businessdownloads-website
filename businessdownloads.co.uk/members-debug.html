@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members Area - Business Downloads</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .user-info {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .debug-info {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .debug-info h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .debug-info pre {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        .content {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .content h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .template-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s;
+            background: #f9f9f9;
+        }
+
+        .template-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .template-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .template-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .download-btn:hover {
+            background: #5568d3;
+        }
+
+        .grant-finder {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .grant-finder h3 {
+            margin-bottom: 15px;
+        }
+
+        .grant-finder-btn {
+            background: white;
+            color: #f5576c;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .grant-finder-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="debug-info">
+            <h3>🔍 Debug Information</h3>
+            <div id="debugInfo">Checking authentication...</div>
+        </div>
+
+        <div class="header">
+            <h1>Welcome to Your Members Area</h1>
+            <div class="user-info" id="userInfo">Loading...</div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="content">
+            <div class="grant-finder">
+                <h3>🎯 UK Business Grant Finder</h3>
+                <p>Access our comprehensive grant database and find funding opportunities for your business.</p>
+                <button class="grant-finder-btn" onclick="window.location.href='grant-finder.html'">Launch Grant Finder</button>
+            </div>
+
+            <h2>📊 Business Spreadsheet Templates</h2>
+            
+            <div class="templates-grid">
+                <div class="template-card">
+                    <h3>Break Even Calculator</h3>
+                    <p>Calculate your break-even point with this comprehensive tool. Understand exactly when your business will start making profit by analyzing fixed costs, variable costs, and pricing.</p>
+                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Break_Even_Calculator_v1.1.xlsx" class="download-btn" download>Download Template</a>
+                </div>
+
+                <div class="template-card">
+                    <h3>Cash Flow Planner</h3>
+                    <p>Plan and forecast your business cash flow for up to 12 months. Track income, expenses, and maintain healthy cash reserves with this essential financial planning tool.</p>
+                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Cash_Flow_Planner_v1.0.xlsx" class="download-btn" download>Download Template</a>
+                </div>
+
+                <div class="template-card">
+                    <h3>Expense Tracker (Simple)</h3>
+                    <p>A straightforward expense tracking spreadsheet perfect for small businesses and sole traders. Keep tabs on all your business expenses with ease.</p>
+                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Expense_Tracker_Simple_v1.1.xlsx" class="download-btn" download>Download Template</a>
+                </div>
+
+                <div class="template-card">
+                    <h3>Expense Tracker (Smart)</h3>
+                    <p>Advanced expense tracking with category analysis, trend reporting, and budget monitoring. Perfect for businesses that need detailed financial insights.</p>
+                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Expense_Tracker_Smart_v1.1.xlsx" class="download-btn" download>Download Template</a>
+                </div>
+
+                <div class="template-card">
+                    <h3>Margin Tracker</h3>
+                    <p>Monitor your profit margins across products and services. Ensure your pricing maintains healthy margins and identify opportunities to improve profitability.</p>
+                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Margin_Tracker_v1.0.xlsx" class="download-btn" download>Download Template</a>
+                </div>
+
+                <div class="template-card">
+                    <h3>Pricing Calculator</h3>
+                    <p>Calculate optimal pricing for your products or services. Factor in costs, desired margins, competition, and market positioning to set profitable prices.</p>
+                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Pricing_Calculator_v1.0.xlsx" class="download-btn" download>Download Template</a>
+                </div>
+            </div>
+
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-top: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">💡 How to Use These Templates</h3>
+                <ol style="color: #666; line-height: 1.8; margin-left: 20px;">
+                    <li>Click the "Download Template" button for any spreadsheet</li>
+                    <li>Open the file in Microsoft Excel, Google Sheets, or LibreOffice</li>
+                    <li>Follow the instructions within each template</li>
+                    <li>Customize with your business data</li>
+                    <li>Save your own copy for regular use</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabaseUrl = 'https://hwkqvdvyifdczxfzjqqg.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3a3F2ZHZ5aWZkY3p4ZnpqcXFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY5NTEwNjIsImV4cCI6MjA1MjUyNzA2Mn0.VOpBdrcnPEyX_A3LvC86Z-Yn25M2G6Qg4wSLxX21VnI';
+        
+        const debugDiv = document.getElementById('debugInfo');
+        
+        function addDebug(message) {
+            console.log(message);
+            debugDiv.innerHTML += '<br>' + message;
+        }
+
+        try {
+            addDebug('✓ Starting Supabase initialization...');
+            const supabase = createClient(supabaseUrl, supabaseKey);
+            addDebug('✓ Supabase client created');
+
+            async function checkAuth() {
+                try {
+                    addDebug('✓ Calling getSession...');
+                    const { data: { session }, error } = await supabase.auth.getSession();
+                    
+                    addDebug('✓ getSession completed');
+                    
+                    if (error) {
+                        addDebug('❌ Error: ' + error.message);
+                        return;
+                    }
+                    
+                    if (!session) {
+                        addDebug('❌ No session found - would redirect to login');
+                        addDebug('⏸️ REDIRECT DISABLED FOR DEBUGGING');
+                        // Commenting out redirect for debugging
+                        // window.location.href = 'login.html';
+                        return;
+                    }
+
+                    addDebug('✓ Session found!');
+                    addDebug('Email: ' + session.user.email);
+                    addDebug('User ID: ' + session.user.id);
+                    document.getElementById('userInfo').textContent = `Logged in as: ${session.user.email}`;
+                } catch (err) {
+                    addDebug('❌ Exception in checkAuth: ' + err.message);
+                    console.error(err);
+                }
+            }
+
+            window.logout = async function() {
+                await supabase.auth.signOut();
+                window.location.href = 'index.html';
+            };
+
+            checkAuth();
+        } catch (err) {
+            addDebug('❌ Fatal error: ' + err.message);
+            console.error(err);
+        }
+    </script>
+</body>
+</html>
