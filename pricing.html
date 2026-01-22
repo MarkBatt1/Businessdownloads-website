@@ -245,55 +245,52 @@
             annual: 'price_1Ss7wRJ9jd3gtLLwkYdJMLLL'
         };
 
-        async function checkout(plan) {
-            // Check if user is logged in
-            const { data: { user } } = await supabaseClient.auth.getUser();
+     async function checkout(plan, event) {
+    // Check if user is logged in
+    const { data: { user } } = await supabaseClient.auth.getUser();
 
-            if (!user) {
-                // Redirect to signup if not logged in
-                window.location.href = 'signup.html';
-                return;
-            }
+    if (!user) {
+        // Redirect to signup if not logged in
+        window.location.href = 'signup.html';
+        return;
+    }
 
-            // Disable button
-            event.target.disabled = true;
-            event.target.textContent = 'Loading...';
+    // Disable button
+    event.target.disabled = true;
+    event.target.textContent = 'Loading...';
 
-            try {
-                // Call our secure serverless function
-                const response = await fetch('/.netlify/functions/create-checkout', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        priceId: priceIds[plan],
-                        email: user.email,
-                        userId: user.id
-                    })
-                });
+    try {
+        // Call our secure serverless function
+        const response = await fetch('/.netlify/functions/create-checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                priceId: priceIds[plan],
+                email: user.email,
+                userId: user.id
+            })
+        });
 
-                const { sessionId, error } = await response.json();
+        const data = await response.json();
 
-                if (error) {
-                    throw new Error(error);
-                }
-
-                // Redirect to Stripe checkout
-                const result = await stripe.redirectToCheckout({ sessionId });
-
-                if (result.error) {
-                    alert(result.error.message);
-                }
-
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Something went wrong. Please try again.');
-            } finally {
-                event.target.disabled = false;
-                event.target.textContent = plan === 'monthly' ? 'Start Monthly Plan' : 'Start Annual Plan';
-            }
+        if (data.error) {
+            throw new Error(data.error);
         }
-    </script>
-</body>
-</html>
+
+        // Redirect to Stripe checkout
+        const result = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+
+        if (result.error) {
+            alert(result.error.message);
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Something went wrong. Please try again.');
+    } finally {
+        event.target.disabled = false;
+        event.target.textContent = plan === 'monthly' ? 'Start Monthly Plan' : 'Start Annual Plan';
+    }
+}
