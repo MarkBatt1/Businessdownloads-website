@@ -157,7 +157,7 @@
     <div class="container">
         <div class="header">
             <h1>Welcome to Your Members Area</h1>
-            <div class="user-info" id="userInfo">Loading...</div>
+            <div class="user-info" id="userInfo">Checking session...</div>
             <button class="logout-btn" onclick="handleLogout()">Logout</button>
         </div>
 
@@ -228,51 +228,30 @@
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3a3F2ZHZ5aWZkY3p4ZnpqcXFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY5NTEwNjIsImV4cCI6MjA1MjUyNzA2Mn0.VOpBdrcnPEyX_A3LvC86Z-Yn25M2G6Qg4wSLxX21VnI';
         
         const supabase = createClient(supabaseUrl, supabaseKey);
+        const userInfoDiv = document.getElementById('userInfo');
 
-        // Check authentication immediately on page load
-        (async function checkAuth() {
+        // Simple auth check with no redirect
+        setTimeout(async () => {
             try {
-                console.log('Checking authentication...');
+                const { data: { session } } = await supabase.auth.getSession();
                 
-                const { data: { session }, error } = await supabase.auth.getSession();
-                
-                if (error) {
-                    console.error('Session error:', error);
-                    document.getElementById('userInfo').textContent = 'Error loading session';
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 2000);
-                    return;
+                if (session && session.user) {
+                    userInfoDiv.textContent = `Logged in as: ${session.user.email}`;
+                    userInfoDiv.style.color = '#28a745';
+                } else {
+                    userInfoDiv.textContent = 'No active session - please login';
+                    userInfoDiv.style.color = '#dc3545';
                 }
-                
-                if (!session) {
-                    console.log('No session found, redirecting to login...');
-                    window.location.href = 'login.html';
-                    return;
-                }
-
-                console.log('Session found:', session.user.email);
-                document.getElementById('userInfo').textContent = `Logged in as: ${session.user.email}`;
-                
             } catch (err) {
-                console.error('Auth check failed:', err);
-                document.getElementById('userInfo').textContent = 'Authentication error';
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 2000);
+                userInfoDiv.textContent = 'Error: ' + err.message;
+                userInfoDiv.style.color = '#dc3545';
             }
-        })();
+        }, 500);
 
         // Logout function
         window.handleLogout = async function() {
-            try {
-                await supabase.auth.signOut();
-                window.location.href = 'index.html';
-            } catch (err) {
-                console.error('Logout failed:', err);
-                // Redirect anyway
-                window.location.href = 'index.html';
-            }
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
         };
     </script>
 </body>
