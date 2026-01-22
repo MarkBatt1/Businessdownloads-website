@@ -272,7 +272,7 @@
 
         .grant-details {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 1rem;
             margin-bottom: 1rem;
         }
@@ -316,6 +316,7 @@
             border-radius: 6px;
             font-weight: 600;
             transition: transform 0.2s;
+            margin-right: 1rem;
         }
 
         .grant-apply:hover {
@@ -347,13 +348,11 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1>Business Grant Finder</h1>
             <p>Discover grants and funding opportunities for your business</p>
         </div>
 
-        <!-- Progress Bar -->
         <div id="progressBar" class="progress-bar">
             <div class="progress-labels">
                 <span id="label1" class="progress-label active">Step 1: Basic Info</span>
@@ -364,13 +363,13 @@
             </div>
         </div>
 
-        <!-- Step 1 -->
         <div id="step1" class="card">
             <h2>📍 Tell us about your business</h2>
             
             <div class="form-group">
                 <label for="postcode">Postcode</label>
-                <input type="text" id="postcode" placeholder="e.g. SW1A 1AA">
+                <input type="text" id="postcode" placeholder="e.g. SW1A 1AA" maxlength="8">
+                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">We'll find grants available in your area</p>
             </div>
 
             <div class="form-group">
@@ -378,30 +377,30 @@
                 <select id="sector">
                     <option value="">Select your sector</option>
                     <option value="Retail">Retail</option>
-                    <option value="Hospitality & Catering">Hospitality & Catering</option>
-                    <option value="Construction & Trades">Construction & Trades</option>
-                    <option value="Professional Services">Professional Services</option>
-                    <option value="Creative & Media">Creative & Media</option>
-                    <option value="Technology & IT">Technology & IT</option>
+                    <option value="Hospitality">Hospitality & Catering</option>
+                    <option value="Construction">Construction & Trades</option>
+                    <option value="Professional">Professional Services</option>
+                    <option value="Creative">Creative & Media</option>
+                    <option value="Technology">Technology & IT</option>
                     <option value="Manufacturing">Manufacturing</option>
-                    <option value="Healthcare & Social Care">Healthcare & Social Care</option>
-                    <option value="Education & Training">Education & Training</option>
-                    <option value="Agriculture & Farming">Agriculture & Farming</option>
-                    <option value="Transportation & Logistics">Transportation & Logistics</option>
-                    <option value="Beauty & Wellness">Beauty & Wellness</option>
+                    <option value="Healthcare">Healthcare & Social Care</option>
+                    <option value="Education">Education & Training</option>
+                    <option value="Agriculture">Agriculture & Farming</option>
+                    <option value="Transport">Transportation & Logistics</option>
+                    <option value="Beauty">Beauty & Wellness</option>
                     <option value="Other">Other</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="yearsInBusiness">How long have you been in business? (Years)</label>
-                <input type="number" id="yearsInBusiness" min="0" placeholder="0">
+                <input type="number" id="yearsInBusiness" min="0" max="100" placeholder="0">
+                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">Enter 0 if less than 1 year</p>
             </div>
 
             <button id="continueBtn" class="btn btn-primary" disabled>Continue to Step 2</button>
         </div>
 
-        <!-- Step 2 -->
         <div id="step2" class="card hidden">
             <h2>📋 Additional Details</h2>
 
@@ -410,10 +409,10 @@
                 <select id="businessSize">
                     <option value="">Select business size</option>
                     <option value="Sole Trader">Sole Trader</option>
-                    <option value="2-5 employees">2-5 employees</option>
-                    <option value="6-10 employees">6-10 employees</option>
-                    <option value="11-50 employees">11-50 employees</option>
-                    <option value="50+ employees">50+ employees</option>
+                    <option value="2-5">2-5 employees</option>
+                    <option value="6-10">6-10 employees</option>
+                    <option value="11-50">11-50 employees</option>
+                    <option value="50+">50+ employees</option>
                 </select>
             </div>
 
@@ -421,11 +420,11 @@
                 <label for="turnover">Annual Turnover</label>
                 <select id="turnover">
                     <option value="">Select turnover range</option>
-                    <option value="Under £50,000">Under £50,000</option>
-                    <option value="£50,000 - £100,000">£50,000 - £100,000</option>
-                    <option value="£100,000 - £250,000">£100,000 - £250,000</option>
-                    <option value="£250,000 - £500,000">£250,000 - £500,000</option>
-                    <option value="Over £500,000">Over £500,000</option>
+                    <option value="Under £50k">Under £50,000</option>
+                    <option value="£50k-£100k">£50,000 - £100,000</option>
+                    <option value="£100k-£250k">£100,000 - £250,000</option>
+                    <option value="£250k-£500k">£250,000 - £500,000</option>
+                    <option value="Over £500k">Over £500,000</option>
                 </select>
             </div>
 
@@ -440,7 +439,6 @@
             </div>
         </div>
 
-        <!-- Loading -->
         <div id="loading" class="card hidden">
             <div class="loading">
                 <div class="spinner"></div>
@@ -448,7 +446,6 @@
             </div>
         </div>
 
-        <!-- Results -->
         <div id="results" class="hidden">
             <div class="results-header">
                 <h2 id="resultsCount"></h2>
@@ -483,6 +480,150 @@
             'Hiring & recruitment'
         ];
 
+        // Real UK Grants Database
+        const UK_GRANTS = [
+            {
+                name: 'Start Up Loans',
+                provider: 'British Business Bank',
+                amount: '£500 - £25,000',
+                type: 'loan',
+                description: 'Government-backed loans for new and early-stage businesses in England, Northern Ireland, Scotland and Wales.',
+                eligibility: ['Under 2 years in business', 'UK-based business', 'Viable business plan'],
+                deadline: 'Rolling applications',
+                regions: ['England', 'Scotland', 'Wales', 'Northern Ireland'],
+                sectors: ['All'],
+                link: 'https://www.startuploans.co.uk/',
+                minYears: 0,
+                maxYears: 2
+            },
+            {
+                name: 'Innovate UK Smart Grants',
+                provider: 'Innovate UK',
+                amount: '£25,000 - £500,000',
+                type: 'grant',
+                description: 'Funding for game-changing and commercially viable R&D innovation that can significantly impact the UK economy.',
+                eligibility: ['UK registered business', 'Innovative project', 'Strong commercial potential'],
+                deadline: 'Check website for rounds',
+                regions: ['England', 'Scotland', 'Wales', 'Northern Ireland'],
+                sectors: ['Technology', 'Manufacturing', 'Creative', 'Healthcare'],
+                link: 'https://www.ukri.org/councils/innovate-uk/guidance-for-applicants/general-guidance/smart-grants/',
+                minYears: 1,
+                maxYears: 999
+            },
+            {
+                name: 'Help to Grow: Management',
+                provider: 'Department for Business and Trade',
+                amount: '90% funded (£7,500 value)',
+                type: 'grant',
+                description: 'Leadership and management training for SMEs with 50+ employees, including strategic management course.',
+                eligibility: ['5-249 employees', 'Turnover £250k-£50m', '1+ years trading'],
+                deadline: 'Rolling applications',
+                regions: ['England'],
+                sectors: ['All'],
+                link: 'https://helptogrow.campaign.gov.uk/',
+                minYears: 1,
+                maxYears: 999
+            },
+            {
+                name: 'Energy Efficiency Grant',
+                provider: 'Carbon Trust',
+                amount: 'Up to £10,000',
+                type: 'grant',
+                description: 'Support for SMEs to invest in energy-saving equipment and implement energy efficiency measures.',
+                eligibility: ['SME with under 250 employees', 'Energy-saving project', 'UK-based premises'],
+                deadline: 'Rolling applications',
+                regions: ['England', 'Scotland', 'Wales'],
+                sectors: ['All'],
+                link: 'https://www.carbontrust.com/what-we-do/energy-and-carbon-efficiency',
+                minYears: 0,
+                maxYears: 999
+            },
+            {
+                name: 'Rural England Prosperity Fund',
+                provider: 'Local Authorities',
+                amount: 'Varies by region',
+                type: 'grant',
+                description: 'Support for rural businesses and communities for infrastructure, business development and skills.',
+                eligibility: ['Rural location', 'Job creation or retention', 'Community benefit'],
+                deadline: 'Check with local authority',
+                regions: ['England'],
+                sectors: ['All'],
+                link: 'https://www.gov.uk/government/publications/rural-england-prosperity-fund',
+                minYears: 0,
+                maxYears: 999
+            },
+            {
+                name: 'Made Smarter Adoption',
+                provider: 'Made Smarter',
+                amount: 'Up to £25,000 (50% match)',
+                type: 'grant',
+                description: 'Funding for manufacturing SMEs to adopt digital and industrial technologies.',
+                eligibility: ['Manufacturing sector', 'North West, North East, Yorkshire, West Midlands', '5-499 employees'],
+                deadline: 'Rolling applications',
+                regions: ['England'],
+                sectors: ['Manufacturing'],
+                link: 'https://www.madesmarter.uk/adoption/',
+                minYears: 1,
+                maxYears: 999
+            },
+            {
+                name: 'Scottish Enterprise Growth Grants',
+                provider: 'Scottish Enterprise',
+                amount: 'Up to £100,000',
+                type: 'grant',
+                description: 'Support for ambitious Scottish businesses to scale up, innovate and expand.',
+                eligibility: ['Scotland-based', 'Growth potential', 'Job creation'],
+                deadline: 'Rolling applications',
+                regions: ['Scotland'],
+                sectors: ['All'],
+                link: 'https://www.scottish-enterprise.com/support-for-businesses/funding-and-grants/growth-grants',
+                minYears: 0,
+                maxYears: 999
+            },
+            {
+                name: 'Wales Business Fund',
+                provider: 'Welsh Government',
+                amount: '£1,000 - £25,000',
+                type: 'grant',
+                description: 'Financial support for Welsh businesses for capital investment, job creation and business development.',
+                eligibility: ['Wales-based', 'SME', 'Viable business case'],
+                deadline: 'Rolling applications',
+                regions: ['Wales'],
+                sectors: ['All'],
+                link: 'https://businesswales.gov.wales/walesbusinessfund',
+                minYears: 0,
+                maxYears: 999
+            },
+            {
+                name: 'Northern Ireland Micro Business Grant',
+                provider: 'Invest Northern Ireland',
+                amount: 'Up to £5,000',
+                type: 'grant',
+                description: 'Support for micro businesses (under 10 employees) for business development and growth.',
+                eligibility: ['Northern Ireland-based', 'Under 10 employees', 'Turnover under £632k'],
+                deadline: 'Rolling applications',
+                regions: ['Northern Ireland'],
+                sectors: ['All'],
+                link: 'https://www.nibusinessinfo.co.uk/content/start-business-grant',
+                minYears: 0,
+                maxYears: 999
+            },
+            {
+                name: 'Export Support Service',
+                provider: 'Department for Business and Trade',
+                amount: 'Free advice + grants',
+                type: 'grant',
+                description: 'Support and funding for businesses looking to export for the first time or expand into new markets.',
+                eligibility: ['UK business', 'Export plans', '1+ years trading'],
+                deadline: 'Rolling applications',
+                regions: ['England', 'Scotland', 'Wales', 'Northern Ireland'],
+                sectors: ['All'],
+                link: 'https://www.great.gov.uk/export-support/',
+                minYears: 1,
+                maxYears: 999
+            }
+        ];
+
         // Initialize checkboxes
         const purposeContainer = document.getElementById('purposeCheckboxes');
         grantPurposes.forEach(purpose => {
@@ -494,6 +635,26 @@
             `;
             purposeContainer.appendChild(label);
         });
+
+        // Get region from postcode
+        function getRegionFromPostcode(postcode) {
+            const area = postcode.toUpperCase().replace(/\s/g, '').substring(0, 2);
+            
+            // Scottish postcodes
+            if (['AB', 'DD', 'DG', 'EH', 'FK', 'G', 'HS', 'IV', 'KA', 'KW', 'KY', 'ML', 'PA', 'PH', 'TD', 'ZE'].includes(area)) {
+                return 'Scotland';
+            }
+            // Welsh postcodes
+            if (['CF', 'CH', 'LD', 'LL', 'NP', 'SA', 'SY'].includes(area)) {
+                return 'Wales';
+            }
+            // Northern Ireland postcodes
+            if (['BT'].includes(area)) {
+                return 'Northern Ireland';
+            }
+            // Default to England
+            return 'England';
+        }
 
         // Event listeners
         document.getElementById('postcode').addEventListener('input', (e) => {
@@ -548,7 +709,7 @@
 
         function checkStep1() {
             const continueBtn = document.getElementById('continueBtn');
-            if (formData.postcode && formData.sector && formData.yearsInBusiness) {
+            if (formData.postcode && formData.sector && formData.yearsInBusiness !== '') {
                 continueBtn.disabled = false;
             } else {
                 continueBtn.disabled = true;
@@ -570,136 +731,71 @@
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('loading').classList.remove('hidden');
 
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await new Promise(resolve => setTimeout(resolve, 1500));
 
-            const results = generateMockResults(formData);
+            const results = filterGrants(formData);
             displayResults(results);
         }
 
-        function generateMockResults(data) {
-            const allGrants = [
-                {
-                    name: 'Start Up Loans',
-                    provider: 'British Business Bank',
-                    amount: '£500 - £25,000',
-                    type: 'loan',
-                    description: 'Government-backed loans for new and early-stage businesses.',
-                    eligibility: ['Under 2 years in business', 'UK-based business'],
-                    deadline: 'Rolling applications',
-                    link: 'https://www.startuploans.co.uk'
-                },
-                {
-                    name: 'Local Business Grant Scheme',
-                    provider: 'Local Council',
-                    amount: 'Up to £5,000',
-                    type: 'grant',
-                    description: 'Support for small businesses in your local area for growth and development.',
-                    eligibility: ['Based in local authority area', 'Under 10 employees'],
-                    deadline: '30 June 2026',
-                    link: '#'
-                },
-                {
-                    name: 'Innovation Grant',
-                    provider: 'Innovate UK',
-                    amount: '£25,000 - £100,000',
-                    type: 'grant',
-                    description: 'Funding for innovative technology and R&D projects.',
-                    eligibility: ['Technology sector', 'Innovation-focused project'],
-                    deadline: '15 March 2026',
-                    link: 'https://www.ukri.org/councils/innovate-uk'
-                },
-                {
-                    name: 'Retail Business Support Fund',
-                    provider: 'Local Enterprise Partnership',
-                    amount: 'Up to £10,000',
-                    type: 'grant',
-                    description: 'Financial support for retail businesses to improve premises and operations.',
-                    eligibility: ['Retail sector', 'Physical premises'],
-                    deadline: '31 May 2026',
-                    link: '#'
-                },
-                {
-                    name: 'Skills Training Grant',
-                    provider: 'Department for Education',
-                    amount: 'Up to £3,000 per employee',
-                    type: 'grant',
-                    description: 'Funding for employee training and professional development.',
-                    eligibility: ['All sectors', 'Training must be job-related'],
-                    deadline: 'Rolling applications',
-                    link: '#'
-                },
-                {
-                    name: 'Green Business Fund',
-                    provider: 'Environment Agency',
-                    amount: '£5,000 - £50,000',
-                    type: 'grant',
-                    description: 'Support for businesses investing in energy efficiency and sustainability.',
-                    eligibility: ['Energy efficiency improvements', 'Renewable energy installation'],
-                    deadline: '20 April 2026',
-                    link: '#'
-                },
-                {
-                    name: 'Export Growth Fund',
-                    provider: 'Department for Business and Trade',
-                    amount: 'Up to £20,000',
-                    type: 'grant',
-                    description: 'Support for businesses looking to export or expand internationally.',
-                    eligibility: ['Exporting or planning to export', '1+ years in business'],
-                    deadline: '10 July 2026',
-                    link: '#'
-                }
-            ];
-
-            let filtered = [...allGrants];
-
-            // Filter based on criteria
-            if (data.sector === 'Retail') {
-                filtered = filtered.filter(g => 
-                    g.name.includes('Retail') || 
-                    g.eligibility.includes('All sectors') ||
-                    g.name.includes('Local Business')
-                );
-            } else if (data.sector === 'Technology & IT') {
-                filtered = filtered.filter(g => 
-                    g.name.includes('Innovation') || 
-                    g.eligibility.includes('Technology sector') ||
-                    g.eligibility.includes('All sectors')
-                );
-            }
-
+        function filterGrants(data) {
+            const region = getRegionFromPostcode(data.postcode);
             const yearsNum = parseInt(data.yearsInBusiness) || 0;
-            if (yearsNum < 2 && !filtered.find(g => g.name.includes('Start Up'))) {
-                filtered.push(allGrants[0]);
-            }
+            
+            let filtered = UK_GRANTS.filter(grant => {
+                // Region check
+                if (!grant.regions.includes(region) && !grant.regions.includes('All')) {
+                    return false;
+                }
+                
+                // Years in business check
+                if (yearsNum < grant.minYears || yearsNum > grant.maxYears) {
+                    return false;
+                }
+                
+                // Sector check
+                if (grant.sectors.includes('All')) {
+                    return true;
+                }
+                
+                // Check if sector matches
+                const sectorMatch = grant.sectors.some(s => 
+                    data.sector.toLowerCase().includes(s.toLowerCase()) ||
+                    s.toLowerCase().includes(data.sector.toLowerCase())
+                );
+                
+                return sectorMatch;
+            });
 
-            if (data.lookingFor.includes('Training & development') && !filtered.find(g => g.name.includes('Skills'))) {
-                filtered.push(allGrants[4]);
-            }
-            if (data.lookingFor.includes('Energy efficiency') && !filtered.find(g => g.name.includes('Green'))) {
-                filtered.push(allGrants[5]);
-            }
-            if (data.lookingFor.includes('Export & international trade') && !filtered.find(g => g.name.includes('Export'))) {
-                filtered.push(allGrants[6]);
-            }
-
-            // Remove duplicates
-            const unique = Array.from(new Set(filtered.map(g => g.name)))
-                .map(name => filtered.find(g => g.name === name));
-
-            return unique.slice(0, 6);
+            // Sort by relevance
+            return filtered.sort((a, b) => {
+                // Prioritize grants over loans
+                if (a.type === 'grant' && b.type === 'loan') return -1;
+                if (a.type === 'loan' && b.type === 'grant') return 1;
+                return 0;
+            });
         }
 
         function displayResults(grants) {
             document.getElementById('loading').classList.add('hidden');
             document.getElementById('results').classList.remove('hidden');
             
+            const region = getRegionFromPostcode(formData.postcode);
             document.getElementById('resultsCount').textContent = `Found ${grants.length} grant opportunities`;
             document.getElementById('resultsInfo').textContent = 
-                `Based on: ${formData.sector} • ${formData.postcode} • ${formData.yearsInBusiness} years in business`;
+                `${formData.sector} • ${region} • ${formData.yearsInBusiness} years in business`;
 
             const container = document.getElementById('grantsContainer');
             container.innerHTML = '';
+
+            if (grants.length === 0) {
+                container.innerHTML = `
+                    <div class="grant-card">
+                        <h3>No exact matches found</h3>
+                        <p>Try adjusting your search criteria or contact us for personalized grant recommendations.</p>
+                    </div>
+                `;
+                return;
+            }
 
             grants.forEach(grant => {
                 const card = document.createElement('div');
@@ -722,6 +818,10 @@
                             <div>Deadline</div>
                             <div class="grant-detail-value">${grant.deadline}</div>
                         </div>
+                        <div class="grant-detail-item">
+                            <div>Region</div>
+                            <div class="grant-detail-value">${grant.regions.join(', ')}</div>
+                        </div>
                     </div>
                     <div class="grant-eligibility">
                         <div class="grant-eligibility-title">Eligibility:</div>
@@ -730,7 +830,10 @@
                         </ul>
                     </div>
                     <a href="${grant.link}" class="grant-apply" target="_blank" rel="noopener noreferrer">
-                        Learn More & Apply
+                        Learn More & Apply →
+                    </a>
+                    <a href="grant-questionnaire.html" class="grant-apply" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        Get Help Applying (£299)
                     </a>
                 `;
                 container.appendChild(card);
