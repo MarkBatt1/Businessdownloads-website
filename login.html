@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - BusinessDownloads.co.uk</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -174,12 +173,13 @@
         </div>
     </div>
 
-    <script>
-        // Initialize Supabase - CORRECTED URL TO MATCH MEMBERS.HTML
-        const supabaseUrl = 'https://hwkqvdvyifdczxfzjqqg.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3a3F2ZHZ5aWZkY3p4ZnpqcXFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY5NTEwNjIsImV4cCI6MjA1MjUyNzA2Mn0.VOpBdrcnPEyX_A3LvC86Z-Yn25M2G6Qg4wSLxX21VnI';
-        const { createClient } = supabase;
-        const supabaseClient = createClient(supabaseUrl, supabaseKey);
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabaseUrl = 'https://lhtiilpdfyujumgeuxaq.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodGlpbHBkZnl1anVtZ2V1eGFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MzgyODYsImV4cCI6MjA4NDUxNDI4Nn0.DupipVp6kIExhKUKV5hhDPuN9_uIILA20DRrPu9X2CE';
+        
+        const supabase = createClient(supabaseUrl, supabaseKey);
 
         const form = document.getElementById('loginForm');
         const errorMessage = document.getElementById('errorMessage');
@@ -201,21 +201,28 @@
             errorMessage.style.display = 'none';
 
             try {
-                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                console.log('Attempting login for:', email);
+                
+                const { data, error } = await supabase.auth.signInWithPassword({
                     email: email,
                     password: password
                 });
 
-                if (error) throw error;
+                if (error) {
+                    console.error('Login error:', error);
+                    throw error;
+                }
 
                 console.log('Login successful!', data);
                 
-                // Redirect to members area
-                window.location.href = 'members.html';
+                // Small delay to ensure session is saved
+                setTimeout(() => {
+                    window.location.href = 'members.html';
+                }, 500);
 
             } catch (error) {
-                console.error('Login error:', error);
-                showError(error.message);
+                console.error('Exception during login:', error);
+                showError(error.message || 'Login failed. Please try again.');
                 loginBtn.disabled = false;
                 loginBtn.textContent = 'Sign In';
             }
