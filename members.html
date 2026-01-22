@@ -15,6 +15,112 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+        }
+
+        /* Side Navigation Styles */
+        .sidenav {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 100%);
+            overflow-x: hidden;
+            padding-top: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidenav .logo {
+            padding: 0 20px 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidenav .logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .sidenav .logo a:hover {
+            transform: scale(1.05);
+        }
+
+        .sidenav .logo p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+
+        .sidenav a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.9);
+            display: block;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .sidenav a:hover {
+            background: rgba(255,255,255,0.1);
+            border-left: 4px solid white;
+            color: white;
+        }
+
+        .sidenav a.active {
+            background: rgba(255,255,255,0.15);
+            border-left: 4px solid white;
+            color: white;
+            font-weight: 600;
+        }
+
+        .sidenav .nav-section {
+            margin-top: 30px;
+            padding: 10px 20px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .sidenav .logout-section {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+        }
+
+        .sidenav .logout-btn {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: #fee2e2;
+            display: block;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            background: rgba(220, 38, 38, 0.2);
+            margin: 0 10px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            width: calc(100% - 20px);
+        }
+
+        .sidenav .logout-btn:hover {
+            background: rgba(220, 38, 38, 0.4);
+            color: white;
+        }
+
+        /* Main content */
+        .main-content {
+            margin-left: 250px;
             padding: 20px;
         }
 
@@ -40,22 +146,6 @@
         .user-info {
             color: #666;
             font-size: 14px;
-        }
-
-        .logout-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 15px;
-            transition: background 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: #c82333;
         }
 
         .content {
@@ -151,72 +241,126 @@
         .grant-finder-btn:hover {
             transform: scale(1.05);
         }
+
+        /* Mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            .sidenav {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .sidenav {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .sidenav .logout-section {
+                position: relative;
+                bottom: auto;
+                margin-top: 20px;
+                padding-bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Welcome to Your Members Area</h1>
-            <div class="user-info" id="userInfo">Loading...</div>
-            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    <!-- Side Navigation -->
+    <div class="sidenav">
+        <div class="logo">
+            <a href="Index.html">
+                BusinessDownloads
+                <p>For UK Small Business</p>
+            </a>
         </div>
+        
+        <a href="Index.html">🏠 Home</a>
+        <a href="pricing.html">💷 Pricing</a>
+        
+        <div class="nav-section">Member Benefits</div>
+        <a href="members.html" class="active">📊 Spreadsheet Templates</a>
+        <a href="grant-finder.html">🎯 Grant Finder</a>
+        <a href="grant-questionnaire.html">✨ Grant Application Service</a>
+        
+        <div class="logout-section">
+            <button class="logout-btn" onclick="handleLogout()">🚪 Logout</button>
+        </div>
+    </div>
 
-        <div class="content">
-            <div class="grant-finder">
-                <h3>🎯 UK Business Grant Finder</h3>
-                <p>Access our comprehensive grant database and find funding opportunities for your business.</p>
-                <button class="grant-finder-btn" onclick="window.location.href='grant-finder.html'">Launch Grant Finder</button>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1>Welcome to Your Members Area</h1>
+                <div class="user-info" id="userInfo">Loading...</div>
             </div>
 
-            <h2>📊 Business Spreadsheet Templates</h2>
-            
-            <div class="templates-grid">
-                <div class="template-card">
-                    <h3>Break Even Calculator</h3>
-                    <p>Calculate your break-even point with this comprehensive tool. Understand exactly when your business will start making profit by analyzing fixed costs, variable costs, and pricing.</p>
-                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Break_Even_Calculator_v1.1.xlsx" class="download-btn" download>Download Template</a>
+            <div class="content">
+                <div class="grant-finder">
+                    <h3>🎯 UK Business Grant Finder</h3>
+                    <p>Access our comprehensive grant database and find funding opportunities for your business.</p>
+                    <button class="grant-finder-btn" onclick="window.location.href='grant-finder.html'">Launch Grant Finder</button>
                 </div>
 
-                <div class="template-card">
-                    <h3>Cash Flow Planner</h3>
-                    <p>Plan and forecast your business cash flow for up to 12 months. Track income, expenses, and maintain healthy cash reserves with this essential financial planning tool.</p>
-                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Cash_Flow_Planner_v1.0.xlsx" class="download-btn" download>Download Template</a>
+                <h2>📊 Business Spreadsheet Templates</h2>
+                
+                <div class="templates-grid">
+                    <div class="template-card">
+                        <h3>Break Even Calculator</h3>
+                        <p>Calculate your break-even point with this comprehensive tool. Understand exactly when your business will start making profit by analyzing fixed costs, variable costs, and pricing.</p>
+                        <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Break_Even_Calculator_v1.1.xlsx" class="download-btn" download>Download Template</a>
+                    </div>
+
+                    <div class="template-card">
+                        <h3>Cash Flow Planner</h3>
+                        <p>Plan and forecast your business cash flow for up to 12 months. Track income, expenses, and maintain healthy cash reserves with this essential financial planning tool.</p>
+                        <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Cash_Flow_Planner_v1.0.xlsx" class="download-btn" download>Download Template</a>
+                    </div>
+
+                    <div class="template-card">
+                        <h3>Expense Tracker (Simple)</h3>
+                        <p>A straightforward expense tracking spreadsheet perfect for small businesses and sole traders. Keep tabs on all your business expenses with ease.</p>
+                        <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Expense_Tracker_Simple_v1.1.xlsx" class="download-btn" download>Download Template</a>
+                    </div>
+
+                    <div class="template-card">
+                        <h3>Expense Tracker (Smart)</h3>
+                        <p>Advanced expense tracking with category analysis, trend reporting, and budget monitoring. Perfect for businesses that need detailed financial insights.</p>
+                        <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Expense_Tracker_Smart_v1.1.xlsx" class="download-btn" download>Download Template</a>
+                    </div>
+
+                    <div class="template-card">
+                        <h3>Margin Tracker</h3>
+                        <p>Monitor your profit margins across products and services. Ensure your pricing maintains healthy margins and identify opportunities to improve profitability.</p>
+                        <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Margin_Tracker_v1.0.xlsx" class="download-btn" download>Download Template</a>
+                    </div>
+
+                    <div class="template-card">
+                        <h3>Pricing Calculator</h3>
+                        <p>Calculate optimal pricing for your products or services. Factor in costs, desired margins, competition, and market positioning to set profitable prices.</p>
+                        <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Pricing_Calculator_v1.0.xlsx" class="download-btn" download>Download Template</a>
+                    </div>
                 </div>
 
-                <div class="template-card">
-                    <h3>Expense Tracker (Simple)</h3>
-                    <p>A straightforward expense tracking spreadsheet perfect for small businesses and sole traders. Keep tabs on all your business expenses with ease.</p>
-                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Expense_Tracker_Simple_v1.1.xlsx" class="download-btn" download>Download Template</a>
+                <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-top: 30px;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">💡 How to Use These Templates</h3>
+                    <ol style="color: #666; line-height: 1.8; margin-left: 20px;">
+                        <li>Click the "Download Template" button for any spreadsheet</li>
+                        <li>Open the file in Microsoft Excel, Google Sheets, or LibreOffice</li>
+                        <li>Follow the instructions within each template</li>
+                        <li>Customize with your business data</li>
+                        <li>Save your own copy for regular use</li>
+                    </ol>
                 </div>
-
-                <div class="template-card">
-                    <h3>Expense Tracker (Smart)</h3>
-                    <p>Advanced expense tracking with category analysis, trend reporting, and budget monitoring. Perfect for businesses that need detailed financial insights.</p>
-                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Expense_Tracker_Smart_v1.1.xlsx" class="download-btn" download>Download Template</a>
-                </div>
-
-                <div class="template-card">
-                    <h3>Margin Tracker</h3>
-                    <p>Monitor your profit margins across products and services. Ensure your pricing maintains healthy margins and identify opportunities to improve profitability.</p>
-                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Margin_Tracker_v1.0.xlsx" class="download-btn" download>Download Template</a>
-                </div>
-
-                <div class="template-card">
-                    <h3>Pricing Calculator</h3>
-                    <p>Calculate optimal pricing for your products or services. Factor in costs, desired margins, competition, and market positioning to set profitable prices.</p>
-                    <a href="https://raw.githubusercontent.com/MarkBatt1/Businessdownloads-website/main/Pricing_Calculator_v1.0.xlsx" class="download-btn" download>Download Template</a>
-                </div>
-            </div>
-
-            <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-top: 30px;">
-                <h3 style="color: #667eea; margin-bottom: 10px;">💡 How to Use These Templates</h3>
-                <ol style="color: #666; line-height: 1.8; margin-left: 20px;">
-                    <li>Click the "Download Template" button for any spreadsheet</li>
-                    <li>Open the file in Microsoft Excel, Google Sheets, or LibreOffice</li>
-                    <li>Follow the instructions within each template</li>
-                    <li>Customize with your business data</li>
-                    <li>Save your own copy for regular use</li>
-                </ol>
             </div>
         </div>
     </div>
@@ -263,10 +407,10 @@
         window.handleLogout = async function() {
             try {
                 await supabase.auth.signOut();
-                window.location.href = 'index.html';
+                window.location.href = 'Index.html';
             } catch (err) {
                 console.error('Logout failed:', err);
-                window.location.href = 'index.html';
+                window.location.href = 'Index.html';
             }
         };
 
