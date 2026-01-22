@@ -161,6 +161,7 @@
         .back-link a {
             color: #1e3a8a;
             text-decoration: none;
+            margin: 0 1rem;
         }
 
         .back-link a:hover {
@@ -197,7 +198,7 @@
                     <li>Cancel anytime</li>
                 </ul>
                 
-               <button class="btn" onclick="checkout('monthly', event)">
+                <button class="btn" id="monthlyBtn">
                     Start Monthly Plan
                 </button>
             </div>
@@ -218,16 +219,17 @@
                     <li>Annual invoice for accounting</li>
                 </ul>
                 
-                <button class="btn btn-success" onclick="checkout('annual', event)">
+                <button class="btn btn-success" id="annualBtn">
                     Start Annual Plan
                 </button>
             </div>
         </div>
-<div class="back-link">
-    <a href="index.html">← Back to homepage</a> | 
-    <a href="members.html">Members Area</a> | 
-    <a href="login.html">Login</a>
-</div>
+
+        <div class="back-link">
+            <a href="index.html">← Back to homepage</a>
+            <a href="members.html">Members Area</a>
+            <a href="login.html">Login</a>
+        </div>
     </div>
 
     <script>
@@ -237,7 +239,7 @@
         const { createClient } = supabase;
         const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
-        // Initialize Stripe (only public key - safe to expose)
+        // Initialize Stripe
         const stripe = Stripe('pk_test_51SrngCJCw3w23ST9RrmtHZMdSyN8vFVBGSlSapJMFGRJDE5f19a2pQyM681d5d5liiqxAz8jBpWoE3z1zSiTOB1B00lzQjLMYW');
 
         const priceIds = {
@@ -245,52 +247,67 @@
             annual: 'price_1Ss7wRJ9jd3gtLLwkYdJMLLL'
         };
 
-     async function checkout(plan, event) {
-    // Check if user is logged in
-    const { data: { user } } = await supabaseClient.auth.getUser();
+        async function checkout(plan, button) {
+            // Check if user is logged in
+            const { data: { user } } = await supabaseClient.auth.getUser();
 
-    if (!user) {
-        // Redirect to signup if not logged in
-        window.location.href = 'signup.html';
-        return;
-    }
+            if (!user) {
+                window.location.href = 'signup.html';
+                return;
+            }
 
-    // Disable button
-    event.target.disabled = true;
-    event.target.textContent = 'Loading...';
+            // Disable button
+            button.disabled = true;
+            const originalText = button.textContent;
+            button.textContent = 'Loading...';
 
-    try {
-        // Call our secure serverless function
-        const response = await fetch('/.netlify/functions/create-checkout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                priceId: priceIds[plan],
-                email: user.email,
-                userId: user.id
-            })
+            try {
+                console.log('Calling Netlify function...');
+                
+                const response = await fetch('/.netlify/functions/create-checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        priceId: priceIds[plan],
+                        email: user.email,
+                        userId: user.id
+                    })
+                });
+
+                console.log('Response status:', response.status);
+                const data = await response.json();
+                console.log('Response data:', data);
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                // Redirect to Stripe checkout
+                const result = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+
+                if (result.error) {
+                    alert(result.error.message);
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong: ' + error.message);
+            } finally {
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        }
+
+        // Add event listeners
+        document.getElementById('monthlyBtn').addEventListener('click', function() {
+            checkout('monthly', this);
         });
 
-        const data = await response.json();
-
-        if (data.error) {
-            throw new Error(data.error);
-        }
-
-        // Redirect to Stripe checkout
-        const result = await stripe.redirectToCheckout({ sessionId: data.sessionId });
-
-        if (result.error) {
-            alert(result.error.message);
-        }
-
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Something went wrong. Please try again.');
-    } finally {
-        event.target.disabled = false;
-        event.target.textContent = plan === 'monthly' ? 'Start Monthly Plan' : 'Start Annual Plan';
-    }
-}
+        document.getElementById('annualBtn').addEventListener('click', function() {
+            checkout('annual', this);
+        });
+    </script>
+</body>
+</html>
